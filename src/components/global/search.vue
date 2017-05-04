@@ -12,7 +12,7 @@
                 <input @focus="swich_status(true)" v-model="queryContent" type="text" class="form-control" id="query" placeholder="请输入" autocomplete="off" />
                 <ul v-if="isView" class="query-result list-group ">
                     <li v-if="isLoading" class="list-group-item">
-                        
+
                     </li>
                     <li v-else v-for="result in queryResults" class="list-group-item" @click="swich_status(false)">
                         <router-link :to="{ path: 'database', query: { type: queryType, search:result.hpoId }}">
@@ -44,10 +44,10 @@
             swich_status:function(isView){
                 this.isView=isView
             },
-            query:function () { 
+            query:function () {
                 let obj = this
                 obj.isLoading = true
-                this.$ajax({
+                this.$axios({
                     headers: {'Authorization': config.API.token},
                     method: "get",
                     url: config.API.url+"knowledge/"+obj.queryType+"/?query="+obj.queryContent,

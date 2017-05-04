@@ -1,6 +1,6 @@
 <template>
     <div class="container database-container">
-        
+
         <div class="row">
             <div class="col-md-2 logo">
                 <a href="#"><img src="../../static/images/logo.png" alt=""></a>
@@ -24,7 +24,7 @@
                     <p>翻译：{{result.name_cn}}</p>
                     <p>定义：{{result.definition_en}}</p>
                     <p>翻译：{{result.definition_cn}}</p>
-                    
+
                 </div>
         </div>
     </div>
@@ -57,7 +57,7 @@
                 //alert(this.searchContent)
                 this.get_params()
                 let obj = this
-                this.$ajax({
+                this.$axios({
                     headers: {'Authorization': config.API.token},
                     method: "get",
                     url: config.API.url+"knowledge/"+obj.searchType+"/?search="+obj.searchContent,
@@ -67,7 +67,7 @@
                     //console.log(response.data.results)
                     obj.isLoading = false
                 });
-                
+
             }
         },
         created:function(){
@@ -84,6 +84,6 @@
     .database-container {margin: 54px;}
     .database-container .logo{
         line-height: 59px;
-        
+
     }
 </style>
