@@ -28,7 +28,8 @@
     .home-bg{
         width: 100%;
         height: 100%;
-        background: url('../../static/images/bg.jpg') no-repeat center center fixed; background-size: cover;
+        background: url('../../static/images/bg.jpg') no-repeat center center fixed;
+      background-size: cover;
     }
-    
+
 </style>
