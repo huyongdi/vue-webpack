@@ -1,0 +1,746 @@
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Microsoft YaHei";
+}
+
+/*可复用定义*/
+.nowrap {
+    white-space: nowrap; /* 不换行 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.word-wrap {
+    word-wrap: break-word;
+    word-break: normal;
+}
+
+.myRow {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.myCol {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.font-14 {
+    font-size: 14px;
+}
+
+.font-12 {
+    font-size: 12px;
+}
+
+.myTable {
+    font-size: 12px;
+    border-collapse: separate;
+    border: 1px solid #ddd;
+}
+
+.myTable th {
+    background-color: #f0f4f7;
+}
+
+.font-700 {
+    font-weight: 700;
+}
+
+.table-task.table > tbody > tr > td,
+.table-task.table > tbody > tr > th,
+.table-task.table > tfoot > tr > td,
+.table-task.table > tfoot > tr > th,
+.table-task.table > thead > tr > td,
+.table-task.table > thead > tr > th {
+    vertical-align: middle;
+    /*text-align: center;*/
+}
+
+.myTable.table > thead > tr > th {
+    border-bottom: none;
+}
+
+.color-a {
+    color: #337ab7;
+    cursor: pointer;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.fl {
+    float: left;
+}
+
+/*加载动画*/
+
+.spinner {
+    margin: 50px auto 0;
+    width: 150px;
+    text-align: center;
+}
+
+.spinner > div {
+    width: 30px;
+    height: 30px;
+    background-color: #258dc1;
+
+    border-radius: 100%;
+    display: inline-block;
+    -webkit-animation: bounceDelay 1.4s infinite ease-in-out;
+    animation: bounceDelay 1.4s infinite ease-in-out;
+    /* Prevent first frame from flickering when animation starts */
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.spinner .bounce1 {
+    -webkit-animation-delay: -0.32s;
+    animation-delay: -0.32s;
+}
+
+.spinner .bounce2 {
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+}
+
+@-webkit-keyframes bounceDelay {
+    0%, 80%, 100% {
+        -webkit-transform: scale(0.0)
+    }
+    40% {
+        -webkit-transform: scale(1.0)
+    }
+}
+
+@keyframes bounceDelay {
+    0%, 80%, 100% {
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+    }
+    40% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+    }
+}
+
+/*左侧列表*/
+
+.leftNav a,
+.leftNav a:link,
+.leftNav a:visited,
+.leftNav a:hover,
+.leftNav a:active {
+    text-decoration: none;
+}
+
+.leftNav {
+    width: 56px;
+    height: 100%;
+    float: left;
+    position: relative;
+    background-color: #258dc1;
+    z-index: 1200;
+}
+
+.leftNav .nav {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    height: 481px;
+    width: 100%;
+    border-bottom: 1px solid #4fb1e3;
+    text-align: center;
+}
+
+@media screen and (max-height: 768px) {
+    .leftNav .nav {
+        top: -100px;
+    }
+}
+
+.leftNav .nav .leftNav-img-each {
+    position: relative;
+    display: block;
+    padding: 8px 0;
+    background-color: #1a8ec0;
+    cursor: pointer;
+    float: none;
+}
+
+.leftNav .leftNav-img-each:first-child {
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    margin-bottom: 20px;
+}
+
+#left_gene {
+    margin-top: 20px;
+    border-top: 1px solid white;
+}
+
+#left_mutate {
+    border-bottom: 1px solid white;
+}
+
+#left_database {
+    border-top: 1px solid white;
+}
+
+#left_task {
+    border-bottom: 1px solid white;
+}
+
+.leftNav .leftNav-img-each {
+    border-top: 1px solid #4fb1e3;
+    border-bottom: 1px solid #116c98;
+}
+
+.leftNav .nav .liOn {
+    background-color: #00a1e9;
+}
+
+.leftNav .nav .liHover {
+    background-color: #fff;
+}
+
+.leftNav-img {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+}
+
+.showDiv-home {
+    position: absolute;
+    top: 0;
+    left: 56px;
+    width: 130px;
+    background-color: #fff;
+    z-index: 1200;
+}
+
+.showDiv-home-border {
+    padding: 0 20px;
+    top: -1px;
+    border-top: 1px solid #d3d3d3;
+    border-right: 1px solid #d3d3d3;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.ul-border {
+    border-bottom: 1px dotted #d3d3d3;
+    text-align: left;
+}
+
+.ul-border:last-child {
+    border-bottom: none;
+}
+
+.leftNav-img-each ul {
+    padding: 8px 0 13px 0;
+    list-style: none;
+}
+
+.leftNav-img-each ul li {
+    /*margin: 7px 0 0 0;*/
+    padding-left: 11px;
+    text-align: left;
+}
+
+.showDiv-home .span-home {
+    /*margin-top: 1px;*/
+    font-weight: bold;
+    font-size: 15px;
+    background-color: #00a1e9;
+    display: inline-block;
+    height: 54px;
+    width: 130px;
+    line-height: 54px;
+    color: #fff;
+    border-left: 0
+}
+
+.a-each {
+    height: 54px;
+    color: inherit;
+    font-weight: bold;
+    font-size: 15px;
+    display: inline-block;
+    width: 100%;
+    line-height: 49px;
+    border-left: 0;
+    border-top: 1px solid #d3d3d3;
+    border-right: 1px solid #d3d3d3;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.a-each:hover {
+    font-size: 16px;
+}
+
+.span-home:hover {
+    font-size: 16px;
+}
+
+.showDiv-title {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.showDiv-subTitle {
+    font-size: 15px;
+}
+
+.showDiv-content {
+    font-size: 13px;
+    color: #777;
+}
+
+.leftNav-img-each ul .showDiv-hoverOn {
+    border-left: 2px solid #37a5d5;
+    /*padding-left: 9px;*/
+    color: #37a5d5;
+}
+
+.leftNav-img-home {
+    background-size: 30px 29px;
+    background: url(../img/baseLeft_home.png) no-repeat center;
+}
+
+.leftNav-img-manage {
+    background-size: 31px 31px;
+    background: url(../img/baseLeft_manage.png) no-repeat center;
+}
+
+.leftNav-img-manage-white {
+    background-size: 31px 31px;
+    background: url(../img/baseLeft-manage-white.png) no-repeat center;
+}
+
+.leftNav-img-manage-blue {
+    background-size: 31px 31px;
+    background: url(../img/baseLeft-manage-blue.png) no-repeat center;
+}
+
+.leftNav-img-data {
+    background-size: 32px 32px;
+    background: url(../img/baseLeft_data.png) no-repeat center;
+}
+
+.leftNav-img-data-blue {
+    background-size: 32px 32px;
+    background: url(../img/baseLeft-data-blue.png) no-repeat center;
+}
+
+.leftNav-img-data-white {
+    background-size: 32px 32px;
+    background: url(../img/baseLeft-data-white.png) no-repeat center;
+}
+
+.leftNav-img-analyze {
+    background-size: 28px 20px;
+    background: url(../img/baseLeft_analyze.png) no-repeat center;
+}
+
+.leftNav-img-analyze-gray {
+    background-size: 28px 20px;
+    background: url(../img/baseLeft-analyze-blue.png) no-repeat center;
+}
+
+.leftNav-img-analyze-blue {
+    background-size: 28px 20px;
+    background: url(../img/baseLeft-analyze-blue.png) no-repeat center;
+}
+
+.leftNav-img-analyze-white {
+    background-size: 28px 20px;
+    background: url(../img/baseLeft-analyze-white.png) no-repeat center;
+}
+
+.leftNav-img-task {
+    background-size: 32px 32px;
+    background: url(../img/task-gray.png) no-repeat center;
+}
+
+.leftNav-img-task-blue {
+    background-size: 32px 32px;
+    background: url(../img/baseLeft-task-blue.png) no-repeat center;
+}
+
+.leftNav-img-task-white {
+    background-size: 32px 32px;
+    background: url(../img/aside-task-white.png) no-repeat center;
+}
+
+.leftNav-img-database-gray {
+    background-size: 25px 30px;
+    background: url(../img/baseLeft_database.png) no-repeat center;
+}
+
+.leftNav-img-database-blue {
+    background-size: 25px 30px;
+    background: url(../img/baseLeft-database-blue.png) no-repeat center;
+}
+
+.leftNav-img-database-white {
+    background-size: 25px 30px;
+    background: url(../img/baseLeft-database-white.png) no-repeat center;
+}
+
+.leftNav-img-gene-gray {
+    background-size: 32px 32px;
+    background: url(../img/gene-gray.png) no-repeat center;
+}
+
+.leftNav-img-gene-white {
+    background-size: 32px 32px;
+    background: url(../img/gene-white.png) no-repeat center;
+}
+
+.leftNav-img-gene-blue {
+    background-size: 32px 32px;
+    background: url(../img/gene-blue.png) no-repeat center;
+}
+
+.leftNav-img-panel-gray {
+    background-size: 32px 32px;
+    background: url(../img/panel-gray.png) no-repeat center;
+}
+
+.leftNav-img-panel-white {
+    background-size: 32px 32px;
+    background: url(../img/panel-white.png) no-repeat center;
+}
+
+.leftNav-img-panel-blue {
+    background-size: 32px 32px;
+    background: url(../img/panel-blue.png) no-repeat center;
+}
+
+.leftNav-img-hpo-gray {
+    background-size: 35px 32px;
+    background: url(../img/hpo-gray.png) no-repeat center;
+}
+
+.leftNav-img-hpo-white {
+    background-size: 35px 32px;
+    background: url(../img/hpo-white.png) no-repeat center;
+}
+
+.leftNav-img-hpo-blue {
+    background-size: 35px 32px;
+    background: url(../img/hpo-blue.png) no-repeat center;
+}
+
+.leftNav-img-mutate-white {
+    background-size: 32px 32px;
+    background: url(../img/mutate-white.png) no-repeat center;
+}
+
+.leftNav-img-mutate-blue {
+    background-size: 32px 32px;
+    background: url(../img/mutate-blue.png) no-repeat center;
+}
+
+.leftNav-img-mutate-gray {
+    background-size: 32px 32px;
+    background: url(../img/mutate-gray.png) no-repeat center;
+}
+
+.specialTitle {
+    font-size: 13px;
+    color: #666;
+    margin-left: 5px;
+}
+
+/*悬浮在左侧导航---begin---*/
+.leftNav-img-each:hover .hide {
+    display: block !important;
+}
+
+#left_home:hover {
+    background-color: #00a1e9;
+}
+
+#leftNav .leftNav-img-each:not(:first-child):hover {
+    background-color: #fff;
+}
+
+#left_database:hover > span {
+    background: url(../img/baseLeft-database-blue.png) no-repeat center;
+}
+
+#left_gene:hover > span {
+    background: url(../img/gene-blue.png) no-repeat center;
+}
+
+#left_panel:hover > span {
+    background: url(../img/panel-blue.png) no-repeat center;
+}
+
+#left_hpo:hover > span {
+    background: url(../img/hpo-blue.png) no-repeat center;
+}
+
+#left_mutate:hover > span {
+    background: url(../img/mutate-blue.png) no-repeat center;
+}
+
+#left_analyze:hover > span {
+    background: url(../img/baseLeft-analyze-blue.png) no-repeat center;
+}
+
+#left_task:hover > span {
+    background: url(../img/aside-task-blue.png) no-repeat center;
+}
+
+.showDiv-analyze {
+    padding-left: 10px;
+    position: absolute;
+    top: 0;
+    left: 56px;
+    width: 440px;
+    background-color: #fff;
+    z-index: 1200;
+    text-align: left;
+    border-top: 1px solid #d3d3d3;
+    border-right: 1px solid #d3d3d3;
+    border-bottom: 1px solid #d3d3d3;
+}
+
+.leftNav-analyze-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.a-each:hover {
+    font-size: 16px;
+}
+
+.leftNav-analyze-a {
+    display: block;
+    height: 26px;
+    line-height: 26px;
+}
+
+.leftNav-analyze-a a {
+    color: inherit;
+}
+
+.leftNav-analyze-div {
+    float: left;
+    width: 140px;
+    /*margin: 10px 0;*/
+}
+
+.leftNav-analyze-link:hover {
+    font-size: 16px;
+}
+
+/*悬浮在左侧导航---end---*/
+
+/*上部导航*/
+.baseRight {
+    /*font-family: "微软雅黑";*/
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.baseRight .navBar {
+    height: 60px;
+    background-color: #e5e5e5;
+    overflow: hidden;
+}
+
+.topNav-logo {
+    width: 204px;
+    height: 29px;
+    display: inline-block;
+    background-size: 204px 29px;
+    background: url(../img/grandbox-logo.png) no-repeat center;
+}
+
+.navBar .navbar-header {
+    margin: 0 0 0 25px;
+}
+
+.topNav-words {
+    color: #777;
+    line-height: 15px;
+    min-width: 184px;
+}
+
+.base-section {
+    height: 160px;
+    line-height: 160px;
+    background: #1d6c93 url(../img/baseRight_bc.png) no-repeat right;
+}
+
+.base-section-title {
+    color: #fff;
+    font-size: 18px;
+    font-family: "HYQiHei", serif;
+    display: inline-block;
+    margin-left: 300px;
+}
+
+.login-in {
+    width: 75px;
+    display: inline-block;
+    text-align: center;
+    line-height: 60px;
+    color: #707070;
+    border-top: 3px solid #e5e5e5;
+    cursor: pointer;
+}
+
+.login-in:hover {
+    border-top: 3px solid #37a5d5;
+}
+
+.login-content {
+    float: right;
+    margin-right: 200px;
+}
+
+/*页脚*/
+footer .home-footer {
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    font-size: 12px;
+    font-family: "Microsoft YaHei", serif;
+    color: #707070;
+    margin-left: 30px;
+}
+
+.footer-logo {
+    display: inline-block;
+    width: 135px;
+    height: 15px;
+    background-size: 135px 17px;
+    background: url(../img/home-footer-logo.png) no-repeat center;
+    margin: 0 0 -3px 10px;
+}
+
+.footer-contact-us {
+    margin-left: 20px;
+}
+
+/*除去首页其余页面右边中间内容*/
+.myBtn {
+    display: inline-block;
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 13px;
+    color: #fff;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 3px;
+}
+
+.baseRight .allContent {
+    padding: 20px 30px 30px 35px;
+    background-color: #f5f5f5;
+}
+
+.detailTitle {
+    margin-top: 10px;
+    background-color: #eeeeee;
+    padding: 5px 10px;
+    font-family: "Microsoft YaHei", serif;
+}
+
+.baseRight .detailShow {
+    min-height: 805px;
+    background-color: #fff;
+    padding: 20px;
+}
+
+.myInput {
+    display: inline-block;
+    height: 34px;
+    width: 179px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.fullHeight {
+    height: 100%;
+}
+
+.data-searchBtn {
+    background-color: #00a1e9;
+}
+
+.navTitle {
+    height: 41px;
+    line-height: 41px;
+}
+
+.navTitle-span {
+    float: left;
+    font-size: 16px;
+    color: #666;
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+/*数据库填充图片区域的高度需要提前设置*/
+.database-sample {
+    width: 100%;
+    height: 400px;
+    overflow-y: hidden;
+}
+
+.database-man-illness {
+    width: 100%;
+    height: 400px;
+    margin: 20px 0;
+}
+
+.database-averageMan,
+.database-illness {
+    height: 400px;
+}
+
+.database-world {
+    height: 500px;
+    width: 100%;
+    overflow-y: hidden;
+}

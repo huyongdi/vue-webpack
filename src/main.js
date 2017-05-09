@@ -5,7 +5,9 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 Vue.prototype.$axios = axios;
-Vue.config.productionTip = false
+Vue.prototype.uname = 'grandbox';
+Vue.prototype.password = 'grandbox123';
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
@@ -13,5 +15,5 @@ new Vue({
     router,
     template: '<App/>',
     components: { App },
-})
+});
 

@@ -34,7 +34,7 @@
     import config from '../../config/config'
     import search from './global/search'
     export default {
-        name: 'Database',
+//        name: 'Database',
         components:{
             'form-search':search
         },

@@ -1,49 +1,89 @@
 <template>
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container-fuild">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#">
-                    中文HPO
-                </a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li role="presentation" class='active'><a href="#">搜索</a></li>
-                    <li role="presentation"><a href="#">CHPO Wiki</a></li>
-                    <li role="presentation"><a href="#">HPO官网</a></li>
-                    <li role="presentation"><a href="#">下载</a></li>
-                </ul>
-            </div>
+  <nav class="navBar">
+    <div class="content">
+      <div class="navbar-header">
+        <a class="navbar-brand " href="../home/home.html">
+          <span class="topNav-logo"></span>
+        </a>
+      </div>
+      <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+          <p class="topNav-words navbar-left navbar-text">医学大数据平台<br>Medical Big Data Platform</p>
         </div>
-    </nav>
+        <div class="login-content">
+          <span class="login-in" id="home_toLogin">
+            <a id="loginIn" :class="{'hide':this.uname}">登&nbsp;&nbsp;&nbsp;录</a>
+            <a id="logOut" :class="{'hide':!this.uname}">{{this.uname}}</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
 </template>
 <script>
-    export default {
-        name: 'header'
+  import API from '../../../config/config'
+  export default {
+    data: function () {
+      return {
+        api: API
+      }
     }
+  }
 </script>
 
-<style>
-    .navbar-default{ background: #454545; margin:0px;}
-    .navbar-nav > li{ padding-left: 25px}
-    .navbar-default .navbar-brand{
-        /* background-color: #454545;
-        border-color: #343434; */
-        padding-left: 50px;
-        color:#fff;
-    }
-    .navbar-default .navbar-nav > li > a,
-    .navbar-default .navbar-nav > li > a:hover, 
-    .navbar-default .navbar-nav > li > a:focus, 
-    .navbar-default .navbar-nav > li.active > a { background-color: #454545; color:#fff; border-bottom: solid 3px  #454545;}
+<style scoped>
+  .navBar {
+    height: 60px;
+    text-align: center;
+    width: 100%;
+  }
 
-    .navbar-default .navbar-nav > li.active > a, 
-    .navbar-default .navbar-nav > li.active > a:hover, 
-    .navbar-default .navbar-nav > li.active > a:focus { background-color: #454545; color:#fff; border-bottom-color: #fff }
-    
-    .navbar-default .navbar-nav > li.active > a, 
-    .navbar-default .navbar-nav > li > a:hover, 
-    .navbar-default .navbar-nav > li > a:focus{ border-bottom-color: #fff }
+  .topNav-logo {
+    width: 204px;
+    height: 29px;
+    display: inline-block;
+    background-size: 204px 29px;
+    background: url(../../img/grandbox-logo.png) no-repeat center;
+  }
+
+  .navBar .navbar-header {
+    margin: 0 0 0 25px;
+  }
+
+  .topNav-words {
+    color: #777;
+    line-height: 15px;
+    min-width: 184px;
+  }
+
+  .login-in {
+    width: 75px;
+    display: inline-block;
+    text-align: center;
+    line-height: 60px;
+    color: #707070;
+    border-top: 3px solid #e5e5e5;
+    cursor: pointer;
+  }
+
+  .login-in:hover {
+    border-top: 3px solid #37a5d5;
+  }
+
+  .login-content {
+    float: right;
+    margin-right: 200px;
+  }
+
+  .content{
+    margin-left: 56px;
+    background-color: #e5e5e5;
+  }
+
+  .login-content a{
+    text-decoration: none;
+  }
+
 </style>
 
 

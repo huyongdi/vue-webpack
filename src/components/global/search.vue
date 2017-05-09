@@ -30,7 +30,7 @@
 <script>
     import config from '../../../config/config'
     export default {
-        name: 'search',
+//        name: 'search',
         data: function(){
             return {
                 queryType: this.$route.query.type ? this.$route.query.type : 'hpo',
