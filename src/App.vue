@@ -22,15 +22,18 @@
 </script>
 
 <style>
-  html,body{
-    margin: 0;
-    padding: 0;
-    height: 100%;
+  html{
     overflow-x: hidden;
     overflow-y: auto;
   }
+  body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
   #app{
     height: 100%;
+    position: relative;
   }
   .f16{
     font-size: 16px;

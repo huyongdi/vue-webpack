@@ -132,7 +132,7 @@
     width: 56px;
     height: 100%;
     margin-top: -60px;
-    position: absolute;
+    position: fixed;
     background-color: #258dc1;
     display: flex;
     text-align: center;
