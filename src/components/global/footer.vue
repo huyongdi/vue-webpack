@@ -133,6 +133,7 @@
     height: 100%;
     margin-top: -60px;
     position: fixed;
+    /*position: absolute;*/
     background-color: #258dc1;
     display: flex;
     text-align: center;
@@ -170,6 +171,10 @@
     line-height: 54px;
     background-color: #fff;
     border-top: 1px solid #d3d3d3;
+  }
+
+  .analyze-data .showDiv{
+    height: 108px;
   }
 
   .analyze-div {

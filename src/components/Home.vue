@@ -6,7 +6,7 @@
     <div class="middle-content">
       <div class="container">
         <div class="row">
-          <div class=" col-xs-4 col-sm-4 col-md-4">
+          <div class=" col-xs-4 col-sm-4 col-md-4 ps">
             <a href="#" class="homeContent-li">
               <span class="middle-content-img middle-content-img-manage"></span>
               <h4><strong>管理系统</strong></h4>
@@ -15,7 +15,7 @@
               <span class="middle-content-detail">根据最新信息制定决策</span>
             </a>
           </div>
-          <div class=" col-xs-4 col-sm-4 col-md-4">
+          <div class=" col-xs-4 col-sm-4 col-md-4 ps">
             <a href="#" class="homeContent-li">
               <span class="middle-content-img middle-content-img-data"></span>
               <h4><strong>数&nbsp;据</strong></h4>
@@ -24,7 +24,7 @@
               <span class="middle-content-detail">极大减少工作成本。</span>
             </a>
           </div>
-          <div class=" col-xs-4 col-sm-4 col-md-4">
+          <div class=" col-xs-4 col-sm-4 col-md-4 ps">
             <a href="#" class="homeContent-li">
               <span class="middle-content-img middle-content-img-report"></span>
               <h4><strong>报&nbsp;告</strong></h4>
@@ -33,7 +33,7 @@
             </a>
           </div>
 
-          <div class=" col-xs-4 col-sm-4 col-md-4">
+          <div class=" col-xs-4 col-sm-4 col-md-4 ps">
             <a href="#" class="homeContent-li">
               <span class="middle-content-img middle-content-img-analyze"></span>
               <h4><strong>分&nbsp;析</strong></h4>
@@ -42,7 +42,7 @@
               <span class="middle-content-detail">样本生物分析和结果报告的效率。</span>
             </a>
           </div>
-          <div class=" col-xs-4 col-sm-4 col-md-4">
+          <div class=" col-xs-4 col-sm-4 col-md-4 ps">
             <a href="#" class="homeContent-li">
               <span class="middle-content-img middle-content-img-task"></span>
               <h4><strong>任&nbsp;务</strong></h4>
@@ -50,7 +50,7 @@
               <span class="middle-content-detail">有效地提高工作效率，实现精细化管理。</span>
             </a>
           </div>
-          <div class=" col-xs-4 col-sm-4 col-md-4">
+          <div class=" col-xs-4 col-sm-4 col-md-4 ps">
             <a href="#" class="homeContent-li">
               <span class="middle-content-img middle-content-img-analyze"></span>
               <h4><strong>数&nbsp;据&nbsp;库</strong></h4>
@@ -159,6 +159,9 @@
     font-family: "HYQiHei", serif;
     display: inline-block;
     margin-left: 300px;
+  }
+  div.ps{
+    position: static;
   }
 
 </style>
