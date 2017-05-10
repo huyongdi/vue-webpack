@@ -23,6 +23,7 @@
 <script>
   import API from '../../../config/config'
   export default {
+    name:'header',
     data: function () {
       return {
         api: API

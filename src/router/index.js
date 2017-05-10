@@ -1,21 +1,28 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-import Database from '@/components/Database'
+import Gene from '@/components/Gene'
+import GeneDetail from '@/components/GeneDetail'
 
-Vue.use(Router)
+
+Vue.use(Router);
 
 export default new Router({
-    routes: [
-        {
-            path: '/',
-            name: 'home',
-            component: Home
-        },
-        {
-            path: '/database',
-            name: 'database',
-            component: Database
-        }
-    ]
+  routes: [
+    {
+      path: '/',
+      name: 'home',
+      component: Home
+    },
+    {
+      path: '/gene',
+      name: 'gene',
+      component: Gene
+    },
+    {
+      path: '/geneDetail',
+      name: 'geneDetail',
+      component: GeneDetail
+    },
+  ]
 })

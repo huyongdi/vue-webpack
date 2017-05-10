@@ -4,7 +4,8 @@
       <li class="leftNav-img-each home">
         <span class="leftNav-img leftNav-img-home"></span>
         <div class="showDiv homeDiv hide">
-          <a class="text-content" href="">首&nbsp;&nbsp;&nbsp;页</a>
+          <!--<a class="text-content" href="">首&nbsp;&nbsp;&nbsp;页</a>-->
+          <router-link class="text-content" to="/">首&nbsp;&nbsp;&nbsp;页</router-link>
         </div>
       </li>
 
@@ -55,7 +56,8 @@
       <li class="leftNav-img-each analyze-gene">
         <span class="leftNav-img leftNav-img-gene"></span>
         <div class="showDiv hide border-bot-d3 border-rig-d3">
-          <a class="text-content" href="#">基&nbsp;&nbsp;&nbsp;因</a>
+          <!--<a class="text-content" href="#">基&nbsp;&nbsp;&nbsp;因</a>-->
+          <router-link class="text-content" to="/gene">基&nbsp;&nbsp;&nbsp;因</router-link>
         </div>
       </li>
       <li class="leftNav-img-each">
@@ -77,13 +79,13 @@
           <a class="text-content" href="#">变&nbsp;&nbsp;&nbsp;异</a>
         </div>
       </li>
-
     </ul>
   </div>
 </template>
 <script>
-  import api from '../../../config/config'
+  import API from '../../../config/config'
   export default {
+      name:'footer',
     data: function () {
       return {
         list: {
@@ -98,7 +100,7 @@
       this.$axios({
         headers: {'X-USERNAME': this.uname, 'X-PASSWORD': this.password},
         method: "get",
-        url: api.analyzeUrl + 'application/app/',
+        url: API.analyzeUrl + 'application/app/',
       }).then(function (resp) {
         $.each(resp.data.results, function (i, data) {
           if (data.code === 'grandmgd') {
@@ -116,7 +118,6 @@
             _vue.list.tool.push(data);
           }
         });
-
       });
     }
   }

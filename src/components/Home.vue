@@ -1,5 +1,5 @@
 <template>
-  <div class="right-content">
+  <div class="right-content ">
     <div class="base-section">
       <span class="base-section-title">构建安全、稳定的基因大数据分析管理系统</span>
     </div>
@@ -65,12 +65,18 @@
 </template>
 
 <script>
-  export default {}
+  export default {
+    name: 'home',
+  }
 </script>
 
 <style scoped>
   .middle-content {
     margin-left: 55px;
+  }
+
+  .right-content {
+    padding: 0 0 0 56px;
   }
 
   .homeContent-li {
@@ -160,7 +166,8 @@
     display: inline-block;
     margin-left: 300px;
   }
-  div.ps{
+
+  div.ps {
     position: static;
   }
 
