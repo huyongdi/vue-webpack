@@ -56,8 +56,7 @@
                     },
                     responseType: 'json'
                 }).then(function (response) {
-                    obj.queryResults = response.data.results
-                    //console.log(response.data.results)
+                    obj.queryResults = response.data.results;
                     obj.isLoading = false
                 });
             }
@@ -75,7 +74,7 @@
 </script>
 
 <style scoped>
-#form-search .form-group > div{padding: 0px}
+#form-search .form-group > div{padding: 0}
 .query-result{
     background-color: #fff;
     position: absolute;

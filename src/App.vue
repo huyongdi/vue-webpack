@@ -1,14 +1,12 @@
 <!--suppress ALL -->
 <template>
   <div id="app">
-    <nav-header></nav-header>
-    <nav-footer></nav-footer>
+    <nav-header v-if="notLogin"></nav-header>
+    <nav-footer v-if="notLogin"></nav-footer>
     <router-view></router-view>
   </div>
 </template>
 <script>
-  import '../node_modules/bootstrap/dist/js/bootstrap.min.js'
-  import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
   import API from '../config/config'
   import header from './components/global/header'
@@ -19,6 +17,19 @@
       'nav-header': header,
       'nav-footer': footer
     },
+    data:function () {
+      return{
+        notLogin:''
+      }
+    },
+    created:function () { //刷新当前页面时候判断需不需要加载头部
+      this.notLogin = localStorage.uname
+    },
+    watch:{
+      '$route' (to, from) { //路由变化的时候判断需不需要加载头部
+          this.notLogin = localStorage.uname
+      }
+    }
   }
 </script>
 
@@ -26,6 +37,7 @@
   html {
     overflow-x: hidden;
     overflow-y: auto;
+    height: 100%;
   }
 
   body {
@@ -109,6 +121,18 @@
 
   .po{
     cursor: pointer;
+  }
+
+  .font-12{
+    font-size: 12px;
+  }
+
+  .inline-block{
+    display: inline-block;
+  }
+
+  .fl{
+    float: left;
   }
 
   /*加载动画*/

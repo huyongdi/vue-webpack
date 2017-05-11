@@ -56,14 +56,13 @@
       <li class="leftNav-img-each analyze-gene">
         <span class="leftNav-img leftNav-img-gene"></span>
         <div class="showDiv hide border-bot-d3 border-rig-d3">
-          <!--<a class="text-content" href="#">基&nbsp;&nbsp;&nbsp;因</a>-->
           <router-link class="text-content" to="/gene">基&nbsp;&nbsp;&nbsp;因</router-link>
         </div>
       </li>
       <li class="leftNav-img-each">
         <span class="leftNav-img leftNav-img-panel"></span>
         <div class="showDiv hide border-bot-d3 border-rig-d3">
-          <a class="text-content" href="#">产&nbsp;&nbsp;&nbsp;品</a>
+          <router-link class="text-content" to="/panel">产&nbsp;&nbsp;&nbsp;品</router-link>
         </div>
       </li>
       <li class="leftNav-img-each hpo">
@@ -95,10 +94,10 @@
         }
       }
     },
-    beforeCreate: function () {
+    created: function () {
       const _vue = this;
       this.$axios({
-        headers: {'X-USERNAME': this.uname, 'X-PASSWORD': this.password},
+        headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
         method: "get",
         url: API.analyzeUrl + 'application/app/',
       }).then(function (resp) {

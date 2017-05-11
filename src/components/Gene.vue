@@ -34,7 +34,7 @@
         <tr v-for="(row , rowIndex) in list_gene" :key="row.geneId">
           <td>
             <!--<a class="color-a" :href="'../knowledge/geneDetail.html?&geneId='+row.geneId" target="_blank" title="查看详情">{{row.geneId}}</a>-->
-            <!--<router-link class="po" to="/geneDetail"></router-link>-->
+            <router-link class="po" :to="{ path: '/geneDetail', query: { geneId: row.geneId}}">{{row.geneId}}</router-link>
           </td>
           <td>{{row.symbol}}</td>
           <td>{{row.synonymsStr}}</td>
@@ -104,7 +104,6 @@
 
 <script>
   import API from '../../config/config'
-//  import {getUrlParam} from './../js/common'
   export default {
     name: 'gene',
     data: function () {
@@ -139,15 +138,10 @@
         let _vue = this;
         this.loading = true;
         this.list_gene = [];
-//        this.inputValue = decodeURI(getUrlParam('query'));
-        const p = this.$route.query.p;
-        let url = p ? 'knowledge/gene/?page=' + p : 'knowledge/gene/';
-//        url = getUrlParam('query') ? url + '&query=' + decodeURI(getUrlParam('query')) : url;
+        let url = 'knowledge/gene/?page=' + this.current;
         url = this.$route.query.query ? url + '&query=' + this.$route.query.query : url;
-        console.log(this.$route.query);
-        console.log(url);
         this.$axios({
-          headers: {'X-USERNAME': this.uname, 'X-PASSWORD': this.password},
+          headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
           method: "get",
           url: API.url + url,
         }).then(function (resp) {
@@ -155,9 +149,8 @@
         });
       },
       onEnter:function () {
-//        window.history.pushState(null, '', '?query='+this.inputValue+'&p=1');
-        this.$route.params.query = this.inputValue
-        this.$route.params.p = 1
+        this.$route.query.query = this.inputValue;
+        this.$route.query.p = 1;
         this.current = 1;
         this.geneAjax();
       },
@@ -169,10 +162,6 @@
         }
         this.current = page ? page : index;
         this.beforeCurrent = page ? page : this.beforeCurrent;
-//        let q = getUrlParam('query');
-        let q = this.$route.query.query;
-        let param = q ? '?query=' + q + '&p=' + this.current : '?&p=' + this.current;
-        window.history.pushState(null, '', param);
         this.geneAjax();
       },
     },

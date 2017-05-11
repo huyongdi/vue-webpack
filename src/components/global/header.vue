@@ -12,8 +12,8 @@
         </div>
         <div class="login-content">
           <span class="login-in" id="home_toLogin">
-            <a id="loginIn" :class="{'hide':this.uname}">登&nbsp;&nbsp;&nbsp;录</a>
-            <a id="logOut" :class="{'hide':!this.uname}">{{this.uname}}</a>
+            <a :class="{'hide':this.uname}">登&nbsp;&nbsp;&nbsp;录</a>
+            <a :class="{'hide':!this.uname}" @click="out">{{this.uname}}</a>
           </span>
         </div>
       </div>
@@ -21,12 +21,26 @@
   </nav>
 </template>
 <script>
-  import API from '../../../config/config'
   export default {
-    name:'header',
+    name: 'header',
     data: function () {
       return {
-        api: API
+        uname: ''
+      }
+    },
+    created: function () {
+      this.uname = localStorage.uname;
+      if (!this.uname) {
+        this.$router.push({path: '/login'})
+      }
+    },
+    methods: {
+      out: function () {
+        if (confirm('确定要退出登录吗？')) {
+          localStorage.removeItem('uname');
+          localStorage.removeItem('password');
+          this.$router.push({path: '/login'})
+        }
       }
     }
   }
@@ -76,12 +90,12 @@
     margin-right: 200px;
   }
 
-  .content{
+  .content {
     margin-left: 56px;
     background-color: #e5e5e5;
   }
 
-  .login-content a{
+  .login-content a {
     text-decoration: none;
   }
 

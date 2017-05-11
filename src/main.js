@@ -4,9 +4,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import axios from 'axios'
+import '../node_modules/bootstrap/dist/js/bootstrap.min.js'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 Vue.prototype.$axios = axios;
-Vue.prototype.uname = 'grandbox';
-Vue.prototype.password = 'grandbox123';
 Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
