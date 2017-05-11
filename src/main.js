@@ -9,7 +9,10 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 Vue.prototype.$axios = axios;
 Vue.config.productionTip = false;
 
-/* eslint-disable no-new */
+axios.defaults.baseURL = 'http://biomeddb.zhu-ying.win:9999/';
+axios.defaults.headers = {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password};
+Vue.prototype.analyzeUrl = 'http://analyze.zhu-ying.win:9999/';
+
 new Vue({
     el: '#app',
     router,

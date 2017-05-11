@@ -8,7 +8,6 @@
 </template>
 <script>
 
-  import API from '../config/config'
   import header from './components/global/header'
   import footer from './components/global/footer'
   export default {
@@ -133,6 +132,14 @@
 
   .fl{
     float: left;
+  }
+
+  .block{
+    display: block;
+  }
+
+  .none{
+    display: none;
   }
 
   /*加载动画*/

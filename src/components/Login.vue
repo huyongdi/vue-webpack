@@ -49,7 +49,6 @@
 </template>
 
 <script>
-  import API from '../../config/config'
   export default {
     data: function () {
       return {
@@ -66,7 +65,7 @@
       login: function () {
         const _vue = this;
         this.$axios({
-          url: API.url + 'user/login/',
+          url: 'user/login/',
           method: 'post',
           data: {
             username: this.inputName,

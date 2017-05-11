@@ -34,16 +34,18 @@
         <tr v-for="(row , rowIndex) in list_gene" :key="row.geneId">
           <td>
             <!--<a class="color-a" :href="'../knowledge/geneDetail.html?&geneId='+row.geneId" target="_blank" title="查看详情">{{row.geneId}}</a>-->
-            <router-link class="po" :to="{ path: '/geneDetail', query: { geneId: row.geneId}}">{{row.geneId}}</router-link>
+            <router-link class="po" :to="{ path: '/geneDetail', query: { geneId: row.geneId}}">{{row.geneId}}
+            </router-link>
           </td>
           <td>{{row.symbol}}</td>
           <td>{{row.synonymsStr}}</td>
           <td>{{row.tags.transcript}}</td>
           <td><span v-show='!!row.dbXrefs.MIM' class="text-danger">*</span>{{row.dbXrefs.MIM}}</td>
           <td>
-            <a v-if="row.panels.length != 0" v-for="panelItem in row.panels" class="color-a" target="_blank"
-               :href="'../knowledge/panel.html?p='+panelItem.panel.code+'&sp='+panelItem.subpanel.code">{{panelItem.subpanel.name_cn}}; </a>
-            <!--@click="jumpTOIllness(panelItem.panel.code,panelItem.subpanel.code)"-->
+            <router-link v-if="row.panels.length != 0" v-for="panelItem in row.panels" :key="panelItem.panel.name_cn" class="block"
+                         :to="{path:'/panel',query:{p:panelItem.panel.code,sp:panelItem.subpanel.code}}">
+              {{panelItem.subpanel.code}}-{{panelItem.subpanel.name_cn}}({{panelItem.panel.code}}-{{panelItem.panel.name_cn}})
+            </router-link>
           </td>
           <td>
             <div v-for="diseaseSingle in row.phenotypeMap">
@@ -103,21 +105,20 @@
 </template>
 
 <script>
-  import API from '../../config/config'
   export default {
     name: 'gene',
     data: function () {
       return {
         list_gene: [],
-        inputValue: this.$route.query.query?this.$route.query.query:'',
+        inputValue: this.$route.query.query ? this.$route.query.query : '',
         current: 1,
         beforeCurrent: 1,
-        showItem: API.pageClick,
+        showItem: 10,
         allPage: 1,
         loading: true
       }
     },
-    mounted: function () {
+    created: function () {
       this.geneAjax()
     },
     methods: {
@@ -131,7 +132,7 @@
           });
         });
         this.list_gene = results;
-        this.allPage = Math.ceil(resp.count / API.pageCount);
+        this.allPage = Math.ceil(resp.count / 20);
         this.loading = false
       },
       geneAjax: function () {
@@ -141,14 +142,14 @@
         let url = 'knowledge/gene/?page=' + this.current;
         url = this.$route.query.query ? url + '&query=' + this.$route.query.query : url;
         this.$axios({
-          headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
+//          headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
           method: "get",
-          url: API.url + url,
+          url: url,
         }).then(function (resp) {
           _vue.fillData(resp.data);
         });
       },
-      onEnter:function () {
+      onEnter: function () {
         this.$route.query.query = this.inputValue;
         this.$route.query.p = 1;
         this.current = 1;

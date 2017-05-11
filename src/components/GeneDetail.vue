@@ -167,7 +167,6 @@
 </template>
 
 <script>
-  import API from '../../config/config'
   export default {
     name: 'geneDetail',
     data: function () {
@@ -230,11 +229,11 @@
       const _vue = this;
       console.log(11);
       console.log(localStorage.uname);
-      console.log(222);
+      console.log();
       this.$axios({
         headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
         method: "get",
-        url: API.url + 'knowledge/gene/' + this.geneId + '/',
+        url: 'knowledge/gene/' + this.geneId + '/',
       }).then(function (resp) {
         _vue.geneData = resp.data;
         $.each(resp.data.phenotypeMap, function (n1, data1) {
@@ -244,7 +243,7 @@
                 _vue.$axios({
                   headers:{'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
                   method: "get",
-                  url: API.url + 'knowledge/hpo/' + data3.hpo + '/',
+                  url: 'knowledge/hpo/' + data3.hpo + '/',
                 }).then(function (resp) {
                   data3.hpoName = resp.data.titles.chinese;
                 })

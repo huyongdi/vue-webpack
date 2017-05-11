@@ -69,7 +69,8 @@
         <span class="leftNav-img leftNav-img-hpo"></span>
         <div class="showDiv   hide">
           <a class="text-content singleA border-rig-d3" href="#">表型分析</a>
-          <a class="text-content border-bot-d3 border-rig-d3 singleA" target="_blank" href="http://chinahpo.org" style="border-top: none">中文HPO</a>
+          <a class="text-content border-bot-d3 border-rig-d3 singleA" target="_blank" href="http://chinahpo.org"
+             style="border-top: none">中文HPO</a>
         </div>
       </li>
       <li class="leftNav-img-each analyze-mutate">
@@ -82,9 +83,9 @@
   </div>
 </template>
 <script>
-  import API from '../../../config/config'
+
   export default {
-      name:'footer',
+    name: 'footer',
     data: function () {
       return {
         list: {
@@ -99,7 +100,7 @@
       this.$axios({
         headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
         method: "get",
-        url: API.analyzeUrl + 'application/app/',
+        url: this.analyzeUrl + 'application/app/',
       }).then(function (resp) {
         $.each(resp.data.results, function (i, data) {
           if (data.code === 'grandmgd') {
@@ -173,7 +174,7 @@
     border-top: 1px solid #d3d3d3;
   }
 
-  .analyze-data .showDiv{
+  .analyze-data .showDiv {
     height: 108px;
   }
 
@@ -241,7 +242,7 @@
     background: url(../../img/baseLeft-analyze-blue.png) no-repeat center;
   }
 
-  .leftNav-img-gene{
+  .leftNav-img-gene {
     background-size: 32px 32px;
     background: url(../../img/gene-white.png) no-repeat center;
   }
@@ -250,7 +251,7 @@
     background: url(../../img/gene-blue.png) no-repeat center;
   }
 
-  .leftNav-img-panel{
+  .leftNav-img-panel {
     background-size: 32px 32px;
     background: url(../../img/panel-white.png) no-repeat center;
   }
@@ -259,7 +260,7 @@
     background: url(../../img/panel-blue.png) no-repeat center;
   }
 
-  .leftNav-img-hpo{
+  .leftNav-img-hpo {
     background-size: 32px 32px;
     background: url(../../img/hpo-white.png) no-repeat center;
   }
@@ -268,7 +269,7 @@
     background: url(../../img/hpo-blue.png) no-repeat center;
   }
 
-  .leftNav-img-mutate{
+  .leftNav-img-mutate {
     background-size: 32px 32px;
     background: url(../../img/mutate-white.png) no-repeat center;
   }
@@ -295,11 +296,11 @@
     margin-bottom: 15px;
   }
 
-  .analyze-data,.analyze-gene {
+  .analyze-data, .analyze-gene {
     border-top: 1px solid #fff;
   }
 
-  .analyze-mutate{
+  .analyze-mutate {
     border-bottom: 1px solid #fff;
   }
 

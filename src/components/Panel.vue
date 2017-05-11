@@ -1,99 +1,99 @@
 <template>
-    <div class="right-content">
-        <div class="locationShow">
-          <div class="navTitle">
-            <span class="panel-small"></span>
-            <span class="navTitle-span">Panel</span>
-          </div>
-          <div class="detailTitle">
-            <span>您现在的位置：</span>
-            <span>数据库</span>&nbsp;>&nbsp;<span id="database-title">panel</span>
-          </div>
-        </div>
-        <!--panel列表-->
-        <div class="detailShow" id="panelList">
+  <div class="right-content">
+    <div class="locationShow">
+      <div class="navTitle">
+        <span class="panel-small"></span>
+        <span class="navTitle-span">Panel</span>
+      </div>
+      <div class="detailTitle">
+        <span>您现在的位置：</span>
+        <span>数据库</span>&nbsp;>&nbsp;<span id="database-title">panel</span>
+      </div>
+    </div>
+    <!--panel列表-->
+    <div class="detailShow" id="panelList">
 
-          <div class="searchBorder" id="search_panel">
-            <input type="text" class="form-control input_hasImg" placeholder="" @keyup.enter="onEnter"
-                   ref="searchInput" id="searchPanel_input">
-            <button class="search-btn myBtn" @click="onEnter"></button>
-          </div>
+      <div class="searchBorder" id="search_panel">
+        <input type="text" class="form-control input_hasImg" placeholder="" @keyup.enter="onEnter"
+               ref="searchInput" id="searchPanel_input">
+        <button class="search-btn myBtn" @click="onEnter"></button>
+      </div>
 
-          <div class="allPanel">
-            <ul class="nav panelList" id="allPanel">
-              <li class="panelOne" v-for="(panel,index) in panels" v-on:click="getSubPanel(index)">
-                <a class="panelTitle" role="button" href="#"> <!--v-bind:href="'#'+panel.code"-->
-                  <span class="arrows arrowsUp"></span>
-                  <span class="panelShow" v-bind:data-panel="panel.code">{{panel.name_cn}}</span>
-                </a>
-                <ul class="subPanelContent" v-bind:id="'panel_'+index" style="display: none" v-bind:data-panelcode="panel.code">
-                  <li class="subPanel" v-for="subPanel in panel.SubPanel" v-bind:data-link="subPanel"></li>
-                </ul>
-              </li>
+      <div class="allPanel" id="allPanel">
+        <ul class="nav panelList">
+          <li class="panelOne" v-for="(panel,index) in panels" @click="getSubPanel(index)">
+            <a class="panelTitle" role="button" href="javascript:void(0)">
+              <span class="arrows arrowsUp"></span>
+              <span class="panelShow" :data-panel="panel.code">{{panel.name_cn}}</span>
+            </a>
+            <ul class="subPanelContent none" :id="'panel_'+index" :data-panelcode="panel.code">
+              <li class="subPanel" v-for="subPanel in panel.SubPanel" v-bind:data-link="subPanel"></li>
             </ul>
+          </li>
+        </ul>
 
-        <!--    <div class="geneDetail">
-              <table class="table table-striped myTable table-gene">
-                <thead>
-                <tr>
-                  <th>系统</th>
-                  <th>panel</th>
-                  <th>疾病</th>
-                  <th>疾病亚型</th>
-                  <th>基因NCBI ID</th>
-                  <th>基因symbol</th>
-                  &lt;!&ndash;<th class="geneAlias">基因别名</th>&ndash;&gt;
-                  <th>遗传方式</th>
-                </tr>
-                </thead>
-                <tbody id="panel_t" class="hide">
-                <tr v-for="subPanel in list_subPanel">
-                  <td>{{listSystem}}</td>
-                  <td>{{listPanel}}</td>
-                  <td>
-                    <span v-if="subPanel.diseaseData">{{subPanel.diseaseData.parent}}</span>
-                  </td>
-                  <td>
+        <div class="geneDetail">
+          <table class="table table-striped myTable table-gene">
+            <thead>
+            <tr>
+              <th>系统</th>
+              <th>panel</th>
+              <th>疾病</th>
+              <th>疾病亚型</th>
+              <th>基因NCBI ID</th>
+              <th>基因symbol</th>
+              <!--<th class="geneAlias">基因别名</th>-->
+              <th>遗传方式</th>
+            </tr>
+            </thead>
+            <tbody id="panel_t" class="hide">
+            <tr v-for="subPanel in list_subPanel">
+              <td>{{listSystem}}</td>
+              <td>{{listPanel}}</td>
+              <td>
+                <span v-if="subPanel.diseaseData">{{subPanel.diseaseData.parent}}</span>
+              </td>
+              <td>
                                 <span v-if="subPanel.diseaseData">
                                 <a href="#" data-toggle="tooltip" data-placement="top" title=""
                                    v-bind:data-original-title="subPanel.diseaseData.name_en">
                                     {{subPanel.diseaseData.name_cn}}
                                 </a>
                                 </span>
-                  </td>
-                  <td>
-                    <div v-for="gene in subPanel.genes">{{gene.geneId}}</div>
-                  </td>
-                  <td>
-                    <div v-for="gene in subPanel.genes">
-                      &lt;!&ndash;<a href="../knowledge/gene.html" data-toggle="tooltip" data-placement="top" title="" v-bind:data-geneId="gene.geneId"&ndash;&gt;
-                      <a  target="_blank" :href="'../knowledge/gene.html?query='+gene.geneId" data-toggle="tooltip" data-placement="top" title="" v-bind:data-geneId="gene.geneId"
-                          v-bind:data-original-title="gene.synonymsTitle">
-                        {{gene.symbol}}
-                      </a>
-                    </div>
-                  </td>
+              </td>
+              <td>
+                <div v-for="gene in subPanel.genes">{{gene.geneId}}</div>
+              </td>
+              <td>
+                <div v-for="gene in subPanel.genes">
+                  <a target="_blank" :href="'../knowledge/gene.html?query='+gene.geneId" data-toggle="tooltip"
+                     data-placement="top" title="" v-bind:data-geneId="gene.geneId"
+                     v-bind:data-original-title="gene.synonymsTitle">
+                    {{gene.symbol}}
+                  </a>
+                </div>
+              </td>
 
-                  <td>
-                                <span v-if="subPanel.diseaseData">
-                                    <span v-for="(inheritanceOne,index) in subPanel.diseaseData.inheritance">
-                                        <span v-if="index !==subPanel.diseaseData.inheritance.length-1">{{inheritanceOne}},</span>
-                                        <span v-else>{{inheritanceOne}}</span>
-                                    </span>
-                                </span>
-                  </td>
-                </tr>
-                </tbody>
-              </table>
+              <td><span v-if="subPanel.diseaseData">
+                        <span v-for="(inheritanceOne,index) in subPanel.diseaseData.inheritance">
+                               <span
+                                 v-if="index !==subPanel.diseaseData.inheritance.length-1">{{inheritanceOne}},</span>
+                               <span v-else>{{inheritanceOne}}</span>
+                        </span>
+                      </span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
 
-              <div class="spinner" id="loading_panel">
-                <div class="bounce1"></div>
-                <div class="bounce2"></div>
-                <div class="bounce3"></div>
-              </div>
+          <!--<div class="spinner" id="loading_panel">-->
+          <!--<div class="bounce1"></div>-->
+          <!--<div class="bounce2"></div>-->
+          <!--<div class="bounce3"></div>-->
+          <!--</div>-->
 
-            </div>-->
-          </div>
+        </div>
+      </div>
 
       <!--    <div id="app" class="text-center" v-show="!!allPage">
             <nav>
@@ -111,35 +111,111 @@
               </ul>
             </nav>
           </div>-->
-        </div>
     </div>
+  </div>
 </template>
 
 <script>
-  import API from '../../config/config'
   export default {
-      name:'panel',
-      data:function () {
-        return{
-          panels:''
-        }
-      },
-      created:function () {
-        const _vue = this;
-        this.$axios({
+    name: 'panel',
+    data: function () {
+      return {
+        panels: '',
+        listSystem: '',
+        listPanel: '',
+        list_subPanel: []
+      }
+    },
+    updated: function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    },
+    created: function () {
+      const _vue = this;
+      this.$axios({
+        headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
+        method: 'get',
+        url: 'product/'
+      }).then(function (resp) {
+        _vue.$axios({
           headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
-          method:'get',
-          url:API.url+'product/'
-        }).then(function (resp) {
+          method: 'get',
+          url: resp.data.panel
+        }).then(function (resp_panel) {
+          _vue.panels = resp_panel.data.results;
+
+          const subPanelUrl = resp_panel.data.results[0].SubPanel[0];
+          let subPanelName = '';
+          //由于要初始化列表里面panel的值，那么需要知道第一个panel里面subPanel的信息
+
           _vue.$axios({
             headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
-            method:'get',
-            url:resp.data.panel
-          }).then(function (resp_panel) {
+            method: 'get',
+            url: subPanelUrl
+          }).then(function (resp_subPanel) {
+            subPanelName = resp_subPanel.name_cn;
+            const $content = $("#allPanel");
+            const $subPanel_show = $content.find("li").first().find(".subPanelContent").find("li").first();
+            $subPanel_show.addClass('onSubPanel');
 
-          })
+            _vue.listSystem = $content.find("li").first().find(".panelShow").data("panel") + '-' + $panel_show.html();
+            _vue.listPanel = respSubPanel.code + '-' + subPanelName;
+
+            _vue.$axios({
+              headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
+              method: 'get',
+              url: 'product/subpaneldisease/?subpanel=' + resp_subPanel.code
+            }).then(function (resp_subPanelList) {
+              let subPanelLIst = resp_subPanelList.data.results;
+              $.each(subPanelLIst, function (i, value) { //确保申明变量，才能实现双向绑定
+                value.diseaseData = [];
+              });
+              $.each(subPanelLIst, function (n, data) {
+                $.each(data.genes, function (a, b) {
+                  b.synonymsTitle = b.synonyms.join(' | ')
+                })
+              });
+              _vue.list_subPanel = subPanelLIst;
+
+              $.each(_vue.list_subPanel, function (i, value) {
+                _vue.$axios({
+                    url:value.disease,
+                    method:'get',
+                    headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
+                }).then(function (resp_disease) {
+                  value.diseaseData = resp_disease.data
+                })
+              });
+            });
+          });
         })
+      })
+    },
+    methods: {
+      onEnter: function () {
+
+      },
+      getSubPanel: function (index) {
+        const _vue = this;
+        const $hide = $("#panel_" + index);
+        $hide.slideToggle('fast', function () {
+          if ($hide.css("display") === "block") { //暂开的时候
+            $hide.parent().find("a").find('.arrows').removeClass('arrowsUp').addClass('arrowsDown');
+            $hide.find("li").each(function () {
+              const $this = $(this);
+              _vue.$axios({
+                headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
+                method: 'get',
+                url: $(this).data("link")
+              }).then(function (respSubPanel) {
+                $this.html(respSubPanel.data.name_cn);
+              });
+            })
+          } else {
+            $hide.parent().find("a").find('.arrows').removeClass('arrowsDown').addClass('arrowsUp');
+          }
+        });
       }
+    }
   }
 </script>
 
@@ -172,7 +248,7 @@
     float: left;
   }
 
-  .pagination{
+  .pagination {
     margin-left: 7%;
   }
 
@@ -180,7 +256,7 @@
     list-style: none;
   }
 
-  .panelList .panelTitle{
+  .panelList .panelTitle {
     background-color: #eee;
   }
 
@@ -188,36 +264,38 @@
     background-color: #f0f4f7;
   }
 
-  .panelList .subPanel{
+  .panelList .subPanel {
     cursor: pointer;
     padding: 2px 0;
   }
 
-  .panelList .subPanel:hover{
-    color: #258dc1;
-  }
-  .onSubPanel{
+  .panelList .subPanel:hover {
     color: #258dc1;
   }
 
-  .arrows{
+  .onSubPanel {
+    color: #258dc1;
+  }
+
+  .arrows {
     display: inline-block;
     width: 16px;
     height: 16px;
     margin-bottom: -3px;
     margin-right: 5px;
   }
-  .arrowsDown{
+
+  .arrowsDown {
     background: url(../img/arrow-down.png);
     background-size: 16px 16px;
   }
 
-  .arrowsUp{
+  .arrowsUp {
     background: url(../img/arrow-up.png);
     background-size: 16px 16px;
   }
 
-  .geneAlias{
+  .geneAlias {
     width: 25%;
   }
 
