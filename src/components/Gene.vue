@@ -142,7 +142,6 @@
         let url = 'knowledge/gene/?page=' + this.current;
         url = this.$route.query.query ? url + '&query=' + this.$route.query.query : url;
         this.$axios({
-//          headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
           method: "get",
           url: url,
         }).then(function (resp) {

@@ -231,7 +231,6 @@
       console.log(localStorage.uname);
       console.log();
       this.$axios({
-        headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
         method: "get",
         url: 'knowledge/gene/' + this.geneId + '/',
       }).then(function (resp) {
@@ -241,7 +240,6 @@
             $.each(data2, function (n3, data3) {
               if (data3.hpo) {
                 _vue.$axios({
-                  headers:{'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
                   method: "get",
                   url: 'knowledge/hpo/' + data3.hpo + '/',
                 }).then(function (resp) {

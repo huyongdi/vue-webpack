@@ -27,7 +27,8 @@
               <span class="panelShow" :data-panel="panel.code">{{panel.name_cn}}</span>
             </a>
             <ul class="subPanelContent none" :id="'panel_'+index" :data-panelcode="panel.code">
-              <li class="subPanel" v-for="subPanel in panel.SubPanel" v-bind:data-link="subPanel"></li>
+              <li class="subPanel" v-for="subPanel in panel.SubPanel" :data-link="subPanel"
+                  @click.stop='clickLi'></li>
             </ul>
           </li>
         </ul>
@@ -46,7 +47,7 @@
               <th>遗传方式</th>
             </tr>
             </thead>
-            <tbody id="panel_t" class="hide">
+            <tbody id="panel_t">
             <tr v-for="subPanel in list_subPanel">
               <td>{{listSystem}}</td>
               <td>{{listPanel}}</td>
@@ -54,12 +55,12 @@
                 <span v-if="subPanel.diseaseData">{{subPanel.diseaseData.parent}}</span>
               </td>
               <td>
-                                <span v-if="subPanel.diseaseData">
-                                <a href="#" data-toggle="tooltip" data-placement="top" title=""
-                                   v-bind:data-original-title="subPanel.diseaseData.name_en">
+                  <span v-if="subPanel.diseaseData">
+                    <a href="#" data-toggle="tooltip" data-placement="top" title=""
+                       v-bind:data-original-title="subPanel.diseaseData.name_en">
                                     {{subPanel.diseaseData.name_cn}}
-                                </a>
-                                </span>
+                    </a>
+                   </span>
               </td>
               <td>
                 <div v-for="gene in subPanel.genes">{{gene.geneId}}</div>
@@ -73,25 +74,22 @@
                   </a>
                 </div>
               </td>
-
-              <td><span v-if="subPanel.diseaseData">
-                        <span v-for="(inheritanceOne,index) in subPanel.diseaseData.inheritance">
-                               <span
-                                 v-if="index !==subPanel.diseaseData.inheritance.length-1">{{inheritanceOne}},</span>
-                               <span v-else>{{inheritanceOne}}</span>
-                        </span>
-                      </span>
+              <td>
+                  <span v-if="subPanel.diseaseData">
+                     <span v-for="(inheritanceOne,index) in subPanel.diseaseData.inheritance">
+                         <span v-if="index !==subPanel.diseaseData.inheritance.length-1">{{inheritanceOne}},</span>
+                         <span v-else>{{inheritanceOne}}</span>
+                     </span>
+                   </span>
               </td>
             </tr>
             </tbody>
           </table>
-
-          <!--<div class="spinner" id="loading_panel">-->
-          <!--<div class="bounce1"></div>-->
-          <!--<div class="bounce2"></div>-->
-          <!--<div class="bounce3"></div>-->
-          <!--</div>-->
-
+          <div class="spinner" v-if="loading">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+          </div>
         </div>
       </div>
 
@@ -123,7 +121,8 @@
         panels: '',
         listSystem: '',
         listPanel: '',
-        list_subPanel: []
+        list_subPanel: [],
+        loading: true
       }
     },
     updated: function () {
@@ -132,67 +131,69 @@
     created: function () {
       const _vue = this;
       this.$axios({
-        headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
         method: 'get',
         url: 'product/'
       }).then(function (resp) {
         _vue.$axios({
-          headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
           method: 'get',
           url: resp.data.panel
         }).then(function (resp_panel) {
-          _vue.panels = resp_panel.data.results;
-
-          const subPanelUrl = resp_panel.data.results[0].SubPanel[0];
-          let subPanelName = '';
-          //由于要初始化列表里面panel的值，那么需要知道第一个panel里面subPanel的信息
-
-          _vue.$axios({
-            headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
-            method: 'get',
-            url: subPanelUrl
-          }).then(function (resp_subPanel) {
-            subPanelName = resp_subPanel.name_cn;
-            const $content = $("#allPanel");
-            const $subPanel_show = $content.find("li").first().find(".subPanelContent").find("li").first();
-            $subPanel_show.addClass('onSubPanel');
-
-            _vue.listSystem = $content.find("li").first().find(".panelShow").data("panel") + '-' + $panel_show.html();
-            _vue.listPanel = respSubPanel.code + '-' + subPanelName;
-
-            _vue.$axios({
-              headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
-              method: 'get',
-              url: 'product/subpaneldisease/?subpanel=' + resp_subPanel.code
-            }).then(function (resp_subPanelList) {
-              let subPanelLIst = resp_subPanelList.data.results;
-              $.each(subPanelLIst, function (i, value) { //确保申明变量，才能实现双向绑定
-                value.diseaseData = [];
-              });
-              $.each(subPanelLIst, function (n, data) {
-                $.each(data.genes, function (a, b) {
-                  b.synonymsTitle = b.synonyms.join(' | ')
-                })
-              });
-              _vue.list_subPanel = subPanelLIst;
-
-              $.each(_vue.list_subPanel, function (i, value) {
-                _vue.$axios({
-                    url:value.disease,
-                    method:'get',
-                    headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
-                }).then(function (resp_disease) {
-                  value.diseaseData = resp_disease.data
-                })
-              });
-            });
-          });
+          _vue.fillList_parent(resp_panel)
         })
       })
     },
     methods: {
-      onEnter: function () {
+      fillList_parent: function (resp_panel) {
+        const _vue = this;
+        _vue.panels = resp_panel.data.results;
+        const subPanelUrl = resp_panel.data.results[0].SubPanel[0];
+        let subPanelName = '';
+        //由于要初始化列表里面panel的值，那么需要知道第一个panel里面subPanel的信息
+        _vue.$axios({
+          method: 'get',
+          url: subPanelUrl
+        }).then(function (resp_subPanel) {
+          subPanelName = resp_subPanel.data.name_cn;
+          const $content = $("#allPanel");
+          const $panel_show = $content.find("li").first().find(".panelShow");
+          const $subPanel_show = $content.find("li").first().find(".subPanelContent").find("li").first();
+          $subPanel_show.addClass('onSubPanel');
 
+          _vue.listSystem = $content.find("li").first().find(".panelShow").data("panel") + '-' + $panel_show.html();
+          _vue.listPanel = resp_subPanel.data.code + '-' + subPanelName;
+
+          _vue.fillList_child(resp_subPanel)
+
+        });
+      },
+      fillList_child: function (resp_subPanel, sublist_url) {
+        const _vue = this;
+        _vue.$axios({
+          method: 'get',
+          url: sublist_url ? sublist_url : 'product/subpaneldisease/?subpanel=' + resp_subPanel.data.code
+        }).then(function (resp_subPanelList) {
+          let subPanelLIst = resp_subPanelList.data.results;
+          $.each(subPanelLIst, function (i, value) { //确保申明变量，才能实现双向绑定
+            value.diseaseData = [];
+          });
+          $.each(subPanelLIst, function (n, data) {
+            $.each(data.genes, function (a, b) {
+              b.synonymsTitle = b.synonyms.join(' | ')
+            })
+          });
+          _vue.list_subPanel = subPanelLIst;
+          $.each(_vue.list_subPanel, function (i, value) {
+            _vue.$axios({
+              url: value.disease,
+              method: 'get',
+            }).then(function (resp_disease) {
+              value.diseaseData = resp_disease.data
+            })
+          });
+          _vue.loading = false;
+        });
+      },
+      onEnter: function () {
       },
       getSubPanel: function (index) {
         const _vue = this;
@@ -203,7 +204,6 @@
             $hide.find("li").each(function () {
               const $this = $(this);
               _vue.$axios({
-                headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
                 method: 'get',
                 url: $(this).data("link")
               }).then(function (respSubPanel) {
@@ -214,6 +214,18 @@
             $hide.parent().find("a").find('.arrows').removeClass('arrowsDown').addClass('arrowsUp');
           }
         });
+      },
+      clickLi: function (event) {
+        $(".onSubPanel").removeClass('onSubPanel');
+        $(event.target).addClass('onSubPanel');
+        const url = $(event.target).data("link");
+        const index = url.indexOf("subpanel/");
+        const subPanelGene = url.substring(index + 9, url.length - 1);
+        const sublist_url = 'product/subpaneldisease/?subpanel=' + subPanelGene;
+        const $panel_show = $(event.target).parent().parent().find('.panelShow');
+        this.listSystem = $panel_show.data("panel") + '-' + $panel_show.html();
+        this.listPanel = subPanelGene + '-' + $(event.target).html();
+        this.fillList_child('', sublist_url)
       }
     }
   }

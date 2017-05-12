@@ -98,7 +98,6 @@
     created: function () {
       const _vue = this;
       this.$axios({
-        headers: {'X-USERNAME': localStorage.uname, 'X-PASSWORD': localStorage.password},
         method: "get",
         url: this.analyzeUrl + 'application/app/',
       }).then(function (resp) {
