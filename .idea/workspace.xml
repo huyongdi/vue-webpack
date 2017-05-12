@@ -3,11 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="f71b1002-d012-4340-b98a-2ea5312b3f3c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/index.js" afterPath="$PROJECT_DIR$/config/index.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App.vue" afterPath="$PROJECT_DIR$/src/App.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Gene.vue" afterPath="$PROJECT_DIR$/src/components/Gene.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/GeneDetail.vue" afterPath="$PROJECT_DIR$/src/components/GeneDetail.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/Panel.vue" afterPath="$PROJECT_DIR$/src/components/Panel.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/global/footer.vue" afterPath="$PROJECT_DIR$/src/components/global/footer.vue" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,18 +23,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Panel.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Panel.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Panel.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
-              <caret line="309" column="14" lean-forward="true" selection-start-line="309" selection-start-column="14" selection-end-line="309" selection-end-column="14" />
+            <state relative-caret-position="295">
+              <caret line="131" column="19" lean-forward="false" selection-start-line="131" selection-start-column="19" selection-end-line="131" selection-end-column="19" />
               <folding>
-                <element signature="e#3751#4902#0" expanded="false" />
-                <element signature="e#6969#7036#0" expanded="false" />
-                <element signature="e#7138#7208#0" expanded="false" />
-                <element signature="e#7326#7541#0" expanded="false" />
-                <element signature="e#7624#7633#0" expanded="false" />
-                <element signature="e#7671#8424#0" expanded="false" />
+                <element signature="e#3953#3960#0" expanded="true" />
+                <element signature="e#4059#4066#0" expanded="true" />
+                <element signature="e#6946#7013#0" expanded="false" />
+                <element signature="e#7115#7185#0" expanded="false" />
+                <element signature="e#7303#7518#0" expanded="false" />
+                <element signature="e#7930#8683#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Gene.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/Gene.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="353">
+              <caret line="95" column="42" lean-forward="true" selection-start-line="95" selection-start-column="42" selection-end-line="95" selection-end-column="42" />
+              <folding>
+                <element signature="e#6432#7032#0" expanded="false" />
+                <element signature="n#style#0;n#!!top" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -51,19 +62,6 @@
                 <element signature="n#li#1;n#ul#0;n#div#0;n#template#0;n#!!top" expanded="false" />
                 <element signature="n#li#2;n#ul#0;n#div#0;n#template#0;n#!!top" expanded="false" />
                 <element signature="n#li#3;n#ul#0;n#div#0;n#template#0;n#!!top" expanded="false" />
-                <element signature="n#style#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Gene.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Gene.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="143" column="21" lean-forward="false" selection-start-line="143" selection-start-column="21" selection-end-line="143" selection-end-column="21" />
-              <folding>
-                <element signature="e#6429#7029#0" expanded="false" />
                 <element signature="n#style#0;n#!!top" expanded="false" />
               </folding>
             </state>
@@ -117,8 +115,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>conso</find>
-      <find>ce</find>
       <find>c</find>
       <find>cr</find>
       <find>cre</find>
@@ -143,10 +139,12 @@
       <find>resp_subPanelList</find>
       <find>listSystem</find>
       <find>subPanelContent</find>
-      <find>clickLi</find>
       <find>subPanelUrl</find>
       <find>$axios</find>
       <find>_vue</find>
+      <find>clickLi</find>
+      <find>spinner</find>
+      <find>searchInput</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -180,12 +178,12 @@
         <option value="$PROJECT_DIR$/src/main.js" />
         <option value="$PROJECT_DIR$/config/config.js" />
         <option value="$PROJECT_DIR$/src/components/Login.vue" />
-        <option value="$PROJECT_DIR$/src/App.vue" />
-        <option value="$PROJECT_DIR$/src/components/Gene.vue" />
         <option value="$PROJECT_DIR$/src/components/GeneDetail.vue" />
         <option value="$PROJECT_DIR$/src/components/global/footer.vue" />
         <option value="$PROJECT_DIR$/config/index.js" />
+        <option value="$PROJECT_DIR$/src/App.vue" />
         <option value="$PROJECT_DIR$/src/components/Panel.vue" />
+        <option value="$PROJECT_DIR$/src/components/Gene.vue" />
       </list>
     </option>
   </component>
@@ -218,12 +216,18 @@
             <id />
           </State>
           <State>
+            <id>JavaScript</id>
+          </State>
+          <State>
+            <id>Probable bugsJavaScript</id>
+          </State>
+          <State>
             <id>Vue</id>
           </State>
         </expanded-state>
         <selected-state>
           <State>
-            <id>AngularJS</id>
+            <id>JSEqualityComparisonWithCoercion</id>
           </State>
         </selected-state>
       </profile-state>
@@ -477,7 +481,7 @@
       <workItem from="1494391017570" duration="38000" />
       <workItem from="1494391460388" duration="14242000" />
       <workItem from="1494463117832" duration="28858000" />
-      <workItem from="1494548807936" duration="9765000" />
+      <workItem from="1494548807936" duration="11667000" />
     </task>
     <task id="LOCAL-00001" summary="提交">
       <created>1494407887038</created>
@@ -500,11 +504,18 @@
       <option name="project" value="LOCAL" />
       <updated>1494498373920</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="解决登录问题">
+      <created>1494565854939</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1494565854939</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81315000" />
+    <option name="totallyTimeSpent" value="83217000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -814,16 +825,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="37" column="21" lean-forward="true" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
-          <folding>
-            <element signature="e#206#253#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Home.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
@@ -885,17 +886,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Gene.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="143" column="21" lean-forward="false" selection-start-line="143" selection-start-column="21" selection-end-line="143" selection-end-column="21" />
-          <folding>
-            <element signature="e#6429#7029#0" expanded="false" />
-            <element signature="n#style#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/GeneDetail.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="710">
@@ -922,17 +912,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="890">
+          <caret line="175" column="19" lean-forward="true" selection-start-line="175" selection-start-column="19" selection-end-line="175" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Panel.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="309" column="14" lean-forward="true" selection-start-line="309" selection-start-column="14" selection-end-line="309" selection-end-column="14" />
+        <state relative-caret-position="295">
+          <caret line="131" column="19" lean-forward="false" selection-start-line="131" selection-start-column="19" selection-end-line="131" selection-end-column="19" />
           <folding>
-            <element signature="e#3751#4902#0" expanded="false" />
-            <element signature="e#6969#7036#0" expanded="false" />
-            <element signature="e#7138#7208#0" expanded="false" />
-            <element signature="e#7326#7541#0" expanded="false" />
-            <element signature="e#7624#7633#0" expanded="false" />
-            <element signature="e#7671#8424#0" expanded="false" />
+            <element signature="e#3953#3960#0" expanded="true" />
+            <element signature="e#4059#4066#0" expanded="true" />
+            <element signature="e#6946#7013#0" expanded="false" />
+            <element signature="e#7115#7185#0" expanded="false" />
+            <element signature="e#7303#7518#0" expanded="false" />
+            <element signature="e#7930#8683#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Gene.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="95" column="42" lean-forward="true" selection-start-line="95" selection-start-column="42" selection-end-line="95" selection-end-column="42" />
+          <folding>
+            <element signature="e#6432#7032#0" expanded="false" />
+            <element signature="n#style#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>

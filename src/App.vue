@@ -154,7 +154,6 @@
     width: 30px;
     height: 30px;
     background-color: #258dc1;
-
     border-radius: 100%;
     display: inline-block;
     -webkit-animation: bounceDelay 1.4s infinite ease-in-out;

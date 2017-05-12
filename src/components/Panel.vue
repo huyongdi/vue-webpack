@@ -93,22 +93,25 @@
         </div>
       </div>
 
-      <!--    <div id="app" class="text-center" v-show="!!allPage">
-            <nav>
-              <ul class="pagination">
-                &lt;!&ndash;上一页逻辑&ndash;&gt;
-                <li v-if='current == 1' class='disabled'><span class='color-a'>&laquo;上一页</span></li>
-                <li v-else @click='current&#45;&#45; && goTo(current&#45;&#45;)'><span class='color-a'>&laquo;上一页</span></li>
-                &lt;!&ndash;中间页码&ndash;&gt;
-                <li v-for="index in pages" @click="goTo(index)" :class="{'active':current == index}"><span class="color-a">{{index}}</span></li>
-                &lt;!&ndash;下一页逻辑&ndash;&gt;
-                <li v-if="allPage == current || allPage == 0" class="disabled"><span class="color-a">下一页&raquo;</span></li>
-                <li @click="current++ && goTo(current++)" :class="{'disabled':allPage == current || allPage == 0}"><span class="color-a">下一页&raquo;</span></li>
-                &lt;!&ndash;跳转逻辑&ndash;&gt;
-                <li class=""><span class="color-a toPage">第<input v-model="beforeCurrent" @keyup.enter="goTo()">页/共{{allPage}}页</span></li>
-              </ul>
-            </nav>
-          </div>-->
+      <div id="app" class="text-center" v-show="!!allPage">
+        <nav>
+          <ul class="pagination">
+            <!--上一页逻辑-->
+            <li v-if='current == 1' class='disabled'><span class='color-a'>&laquo;上一页</span></li>
+            <li v-else @click='current-- && goTo(current--)'><span class='color-a'>&laquo;上一页</span></li>
+            <!--中间页码-->
+            <li v-for="index in pages" @click="goTo(index)" :class="{'active':current == index}"><span class="color-a">{{index}}</span>
+            </li>
+            <!--下一页逻辑-->
+            <li v-if="allPage == current || allPage == 0" class="disabled"><span class="color-a">下一页&raquo;</span></li>
+            <li @click="current++ && goTo(current++)" :class="{'disabled':allPage == current || allPage == 0}"><span
+              class="color-a">下一页&raquo;</span></li>
+            <!--跳转逻辑-->
+            <li class=""><span class="color-a toPage">第<input v-model="beforeCurrent" @keyup.enter="goTo()">页/共{{allPage}}页</span>
+            </li>
+          </ul>
+        </nav>
+      </div>
     </div>
   </div>
 </template>
@@ -123,6 +126,10 @@
         listPanel: '',
         list_subPanel: [],
         loading: true
+        current: 1,
+        beforeCurrent: 1,
+        showItem: 10,
+        allPage: 1,
       }
     },
     updated: function () {
@@ -194,6 +201,12 @@
         });
       },
       onEnter: function () {
+        this.fillList_child('', 'product/subpaneldisease/?query=' + $.trim(this.$refs.searchInput.value));
+        $("#allPanel").find(".panelOne").each(function () {
+          if ($(this).find("ul").css("display") !== 'none') {
+            $(this).click();
+          }
+        });
       },
       getSubPanel: function (index) {
         const _vue = this;
