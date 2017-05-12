@@ -42,7 +42,8 @@
           <td>{{row.tags.transcript}}</td>
           <td><span v-show='!!row.dbXrefs.MIM' class="text-danger">*</span>{{row.dbXrefs.MIM}}</td>
           <td>
-            <router-link v-if="row.panels.length != 0" v-for="panelItem in row.panels" :key="panelItem.panel.name_cn" class="block"
+            <router-link v-if="row.panels.length != 0" v-for="panelItem in row.panels" :key="panelItem.panel.name_cn"
+                         class="block"
                          :to="{path:'/panel',query:{p:panelItem.panel.code,sp:panelItem.subpanel.code}}">
               {{panelItem.subpanel.code}}-{{panelItem.subpanel.name_cn}}({{panelItem.panel.code}}-{{panelItem.panel.name_cn}})
             </router-link>
@@ -100,7 +101,6 @@
           </ul>
         </nav>
       </div>
-
 
 
     </div>
