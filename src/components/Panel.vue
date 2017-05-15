@@ -14,100 +14,108 @@
     <div class="detailShow" id="panelList">
 
       <div class="searchBorder" id="search_panel">
-        <input type="text" class="form-control input_hasImg" placeholder="" @keyup.enter="onEnter"
-               ref="searchInput" id="searchPanel_input">
+        <input type="text" class="form-control input_hasImg" @keyup.enter="onEnter" v-model="inputValue">
         <button class="search-btn myBtn" @click="onEnter"></button>
       </div>
-
-      <div class="allPanel" id="allPanel">
-        <ul class="nav panelList">
-          <li class="panelOne" v-for="(panel,index) in panels" @click="getSubPanel(index)">
-            <a class="panelTitle" role="button" href="javascript:void(0)">
+      <div class="allPanel">
+        <ul class="nav panelList" id="allPanel">
+          <li v-if="panel.subpanels.length != 1" class="panelOne" v-for="(panel,index) in panels" @click="subPanelShow">
+            <a class="panelTitle" role="button" @click.prevent="">
               <span class="arrows arrowsUp"></span>
               <span class="panelShow" :data-panel="panel.code">{{panel.name_cn}}</span>
             </a>
-            <ul class="subPanelContent none" :id="'panel_'+index" :data-panelcode="panel.code">
-              <li class="subPanel" v-for="subPanel in panel.SubPanel" :data-link="subPanel"
-                  @click.stop='clickLi'></li>
+            <ul class="subPanelContent hide hideUl" :data-panelcode="panel.code">
+              <li class="subPanel" v-for="subPanel in panel.subpanels" @click.prevent="showRight"
+                  :data-subpanelcode=subPanel.code>
+                {{subPanel.name_cn}}
+              </li>
             </ul>
           </li>
+          <li v-else @click="showRight" class="panelOne" :data-subpanelcode=panel.subpanels[0].code>
+            <a class="panelTitle" role="button" href="#">
+              <span class="arrows arrowsUp"></span>
+              <span class="panelShow" :data-panel="panel.code">{{panel.name_cn}}</span>
+            </a>
+          </li>
         </ul>
-
-        <div class="geneDetail">
-          <table class="table table-striped myTable table-gene">
-            <thead>
-            <tr>
-              <th>系统</th>
-              <th>panel</th>
-              <th>疾病</th>
-              <th>疾病亚型</th>
-              <th>基因NCBI ID</th>
-              <th>基因symbol</th>
-              <!--<th class="geneAlias">基因别名</th>-->
-              <th>遗传方式</th>
-            </tr>
-            </thead>
-            <tbody id="panel_t">
-            <tr v-for="subPanel in list_subPanel">
-              <td>{{listSystem}}</td>
-              <td>{{listPanel}}</td>
-              <td>
-                <span v-if="subPanel.diseaseData">{{subPanel.diseaseData.parent}}</span>
-              </td>
-              <td>
-                  <span v-if="subPanel.diseaseData">
-                    <a href="#" data-toggle="tooltip" data-placement="top" title=""
-                       v-bind:data-original-title="subPanel.diseaseData.name_en">
-                                    {{subPanel.diseaseData.name_cn}}
-                    </a>
-                   </span>
-              </td>
-              <td>
-                <div v-for="gene in subPanel.genes">{{gene.geneId}}</div>
-              </td>
-              <td>
-                <div v-for="gene in subPanel.genes">
-                  <a target="_blank" :href="'../knowledge/gene.html?query='+gene.geneId" data-toggle="tooltip"
-                     data-placement="top" title="" v-bind:data-geneId="gene.geneId"
-                     v-bind:data-original-title="gene.synonymsTitle">
-                    {{gene.symbol}}
-                  </a>
-                </div>
-              </td>
-              <td>
-                  <span v-if="subPanel.diseaseData">
-                     <span v-for="(inheritanceOne,index) in subPanel.diseaseData.inheritance">
-                         <span v-if="index !==subPanel.diseaseData.inheritance.length-1">{{inheritanceOne}},</span>
-                         <span v-else>{{inheritanceOne}}</span>
-                     </span>
-                   </span>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-          <div class="spinner" v-if="loading">
-            <div class="bounce1"></div>
-            <div class="bounce2"></div>
-            <div class="bounce3"></div>
-          </div>
-        </div>
       </div>
 
-      <div id="app" class="text-center" v-show="!!allPage">
+      <div class="geneDetail" id="panel_t">
+        <table class="table table-striped myTable table-gene">
+          <thead>
+          <tr>
+            <th>系统</th>
+            <th>panel</th>
+            <th>疾病</th>
+            <th>疾病亚型</th>
+            <th>基因NCBI ID</th>
+            <th>基因symbol</th>
+            <th>遗传方式</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="single in list_subPanel">
+            <td>{{single.subpanel.panel.code}} - {{single.subpanel.panel.name_cn}}</td>
+            <td>{{single.subpanel.code}} - {{single.subpanel.name_cn}}</td>
+            <td>
+              <span>{{single.disease.parent}}</span>
+            </td>
+            <td>
+                                <span>
+                                <a href="#" data-toggle="tooltip" data-placement="top" title=""
+                                   data-original-title="single.disease.name_en">
+                                    {{single.disease.name_cn}}
+                                </a>
+                                </span>
+            </td>
+            <td>
+              <div v-for="gene in single.genes">{{gene.geneId}}</div>
+            </td>
+            <td>
+              <div v-for="gene in single.genes">
+                <router-link class="po" target="_blank" :to="{ path: '/gene', query: { query: gene.geneId}}"
+                             data-toggle="tooltip" data-placement="top" :data-geneId="gene.geneId"
+                             :data-original-title="gene.synonyms.join('|')">{{gene.symbol}}
+                </router-link>
+              </div>
+            </td>
+            <td>
+                                <span>
+                                    <span v-for="(inheritanceOne,index) in single.disease.inheritance">
+                                        <span
+                                          v-if="index !==single.disease.inheritance.length-1">{{inheritanceOne}},</span>
+                                        <span v-else>{{inheritanceOne}}</span>
+                                    </span>
+                                </span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+        <div class="spinner" v-if="loading">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
+        </div>
+
+      </div>
+
+      <div class="text-center" v-show="!!allPage">
         <nav>
           <ul class="pagination">
             <!--上一页逻辑-->
-            <li v-if='current == 1' class='disabled'><span class='color-a'>&laquo;上一页</span></li>
-            <li v-else @click='current-- && goTo(current--)'><span class='color-a'>&laquo;上一页</span></li>
+            <li v-if='current == 1' class='disabled'><span class=''>&laquo;上一页</span></li>
+            <li v-else @click='current-- && goTo(current--)'><span class='po'>&laquo;上一页</span></li>
             <!--中间页码-->
-            <li v-for="index in pages" @click="goTo(index)" :class="{'active':current == index}"><span class="color-a">{{index}}</span>
+            <li v-for="index in pages" @click="goTo(index)" :class="{'active':current == index}"><span class="po">{{index}}</span>
             </li>
             <!--下一页逻辑-->
-            <li v-if="allPage == current || allPage == 0" class="disabled"><span class="color-a">下一页&raquo;</span></li>
+            <li v-if="allPage == current || allPage == 0" class="disabled"><span class="">下一页&raquo;</span></li>
             <li @click="current++ && goTo(current++)" :class="{'disabled':allPage == current || allPage == 0}"><span
-              class="color-a">下一页&raquo;</span></li>
+              class="po">下一页&raquo;</span></li>
             <!--跳转逻辑-->
-            <li class=""><span class="color-a toPage">第<input v-model="beforeCurrent" @keyup.enter="goTo()">页/共{{allPage}}页</span>
+            <li class=""><span class="po toPage">第<input v-model="beforeCurrent"
+                                                         @keyup.enter="goTo()">页/共{{allPage}}页</span>
             </li>
           </ul>
         </nav>
@@ -121,11 +129,15 @@
     name: 'panel',
     data: function () {
       return {
+        subpanelDisease: '',
+        subPanelUrl: '',
         panels: '',
-        listSystem: '',
-        listPanel: '',
         list_subPanel: [],
-        loading: true
+        loading: true,
+        subPanelCode: 0,
+        inputValue: '',
+        isFirst: 0,
+
         current: 1,
         beforeCurrent: 1,
         showItem: 10,
@@ -133,7 +145,25 @@
       }
     },
     updated: function () {
-      $('[data-toggle="tooltip"]').tooltip();
+      if (this.isFirst) { //只有第一次更新视图的时候（左边更新影响的）需要这样请求列表
+        /*如果从基因页面跳转过来的*/
+        if (this.$route.query.sp) {
+        }
+        $('[data-toggle="tooltip"]').tooltip();
+        const _vue = this;
+        const $first = $("#allPanel").find(".panelOne").first().find('.hideUl').find('.subPanel').first();
+        const firstSubpanelCode = $first.data("subpanelcode");
+        $first.addClass('onSubPanel');
+        this.subPanelCode = firstSubpanelCode;
+        this.$axios({
+          url: this.subpanelDisease + '?subpanel=' + firstSubpanelCode
+        }).then(function (resp) {
+          _vue.allPage = Math.ceil(resp.data.count / 20);
+          _vue.list_subPanel = resp.data.results;
+          _vue.loading = false;
+          _vue.isFirst = 0;
+        });
+      }
     },
     created: function () {
       const _vue = this;
@@ -141,106 +171,95 @@
         method: 'get',
         url: 'product/'
       }).then(function (resp) {
+        _vue.subpanelDisease = resp.data.subpaneldisease;
         _vue.$axios({
           method: 'get',
           url: resp.data.panel
         }).then(function (resp_panel) {
-          _vue.fillList_parent(resp_panel)
+          _vue.panels = resp_panel.data.results;
+          _vue.isFirst = 1;
         })
       })
     },
     methods: {
-      fillList_parent: function (resp_panel) {
-        const _vue = this;
-        _vue.panels = resp_panel.data.results;
-        const subPanelUrl = resp_panel.data.results[0].SubPanel[0];
-        let subPanelName = '';
-        //由于要初始化列表里面panel的值，那么需要知道第一个panel里面subPanel的信息
-        _vue.$axios({
-          method: 'get',
-          url: subPanelUrl
-        }).then(function (resp_subPanel) {
-          subPanelName = resp_subPanel.data.name_cn;
-          const $content = $("#allPanel");
-          const $panel_show = $content.find("li").first().find(".panelShow");
-          const $subPanel_show = $content.find("li").first().find(".subPanelContent").find("li").first();
-          $subPanel_show.addClass('onSubPanel');
-
-          _vue.listSystem = $content.find("li").first().find(".panelShow").data("panel") + '-' + $panel_show.html();
-          _vue.listPanel = resp_subPanel.data.code + '-' + subPanelName;
-
-          _vue.fillList_child(resp_subPanel)
-
-        });
+      subPanelShow: function (event) {
+        const $hide = $(event.target).closest('li').find('.hideUl');
+        const $img = $(event.target).closest('li').find('.arrows');
+        if ($hide.hasClass('hide')) {
+          $hide.removeClass('hide');
+          $img.removeClass('arrowsUp').addClass('arrowsDown')
+        } else {
+          $hide.addClass('hide');
+          $img.removeClass('arrowsDown').addClass('arrowsUp')
+        }
       },
-      fillList_child: function (resp_subPanel, sublist_url) {
+      showRight: function (event) {
+        this.inputValue = '';
+        this.subPanelCode = $(event.target).closest('li').data('subpanelcode');
+        $('.onSubPanel').removeClass('onSubPanel');
+        $(event.target).closest('li').addClass('onSubPanel');
+        this.$route.query.page = 1;
+        this.current = 1;
+        this.beforeCurrent = 1;
+        this.getSubpanelList();
+      },
+      getSubpanelList: function () {
         const _vue = this;
-        _vue.$axios({
-          method: 'get',
-          url: sublist_url ? sublist_url : 'product/subpaneldisease/?subpanel=' + resp_subPanel.data.code
-        }).then(function (resp_subPanelList) {
-          let subPanelLIst = resp_subPanelList.data.results;
-          $.each(subPanelLIst, function (i, value) { //确保申明变量，才能实现双向绑定
-            value.diseaseData = [];
-          });
-          $.each(subPanelLIst, function (n, data) {
-            $.each(data.genes, function (a, b) {
-              b.synonymsTitle = b.synonyms.join(' | ')
-            })
-          });
-          _vue.list_subPanel = subPanelLIst;
-          $.each(_vue.list_subPanel, function (i, value) {
-            _vue.$axios({
-              url: value.disease,
-              method: 'get',
-            }).then(function (resp_disease) {
-              value.diseaseData = resp_disease.data
-            })
-          });
+        this.list_subPanel = [];
+        this.loading = true;
+        this.subPanelUrl = this.inputValue ? this.subpanelDisease + '?query=' + decodeURI(this.inputValue) :
+          this.subpanelDisease + '?subpanel=' + this.subPanelCode,
+          this.subPanelUrl = this.$route.query.page ? this.subPanelUrl + '&page=' + this.$route.query.page : this.subPanelUrl;
+        this.$axios({
+          url: this.subPanelUrl,
+          method: 'get'
+        }).then(function (resp) {
+          _vue.allPage = Math.ceil(resp.data.count / 20);
+          _vue.list_subPanel = resp.data.results;
           _vue.loading = false;
         });
       },
+      goTo: function (page) {
+        const index = this.beforeCurrent;
+        if (index > this.allPage || !/^\d+$/.test(index)) {
+          alert('请输入正确的页码！');
+          return
+        }
+        this.current = page ? page : index;
+        this.beforeCurrent = page ? page : this.beforeCurrent;
+        this.$route.query.page = this.current;
+        this.getSubpanelList();
+      },
       onEnter: function () {
-        this.fillList_child('', 'product/subpaneldisease/?query=' + $.trim(this.$refs.searchInput.value));
-        $("#allPanel").find(".panelOne").each(function () {
-          if ($(this).find("ul").css("display") !== 'none') {
-            $(this).click();
-          }
-        });
-      },
-      getSubPanel: function (index) {
-        const _vue = this;
-        const $hide = $("#panel_" + index);
-        $hide.slideToggle('fast', function () {
-          if ($hide.css("display") === "block") { //暂开的时候
-            $hide.parent().find("a").find('.arrows').removeClass('arrowsUp').addClass('arrowsDown');
-            $hide.find("li").each(function () {
-              const $this = $(this);
-              _vue.$axios({
-                method: 'get',
-                url: $(this).data("link")
-              }).then(function (respSubPanel) {
-                $this.html(respSubPanel.data.name_cn);
-              });
-            })
-          } else {
-            $hide.parent().find("a").find('.arrows').removeClass('arrowsDown').addClass('arrowsUp');
-          }
-        });
-      },
-      clickLi: function (event) {
+        this.$route.query.page = 1;
+        this.current = 1;
+        this.beforeCurrent = 1;
         $(".onSubPanel").removeClass('onSubPanel');
-        $(event.target).addClass('onSubPanel');
-        const url = $(event.target).data("link");
-        const index = url.indexOf("subpanel/");
-        const subPanelGene = url.substring(index + 9, url.length - 1);
-        const sublist_url = 'product/subpaneldisease/?subpanel=' + subPanelGene;
-        const $panel_show = $(event.target).parent().parent().find('.panelShow');
-        this.listSystem = $panel_show.data("panel") + '-' + $panel_show.html();
-        this.listPanel = subPanelGene + '-' + $(event.target).html();
-        this.fillList_child('', sublist_url)
+        this.getSubpanelList();
       }
-    }
+    },
+    computed: {
+      pages: function () { //计算属性
+        var pag = [],
+          i = null;
+        if (this.current < this.showItem) {
+          i = Math.min(this.showItem, this.allPage);
+          while (i) {
+            pag.unshift(i--); //把一个元素添加到数组的开头
+          }
+        } else {
+          var middle = this.current - this.showItem / 2;//从哪里开始
+          i = this.showItem;
+          if (middle > (this.allPage - this.showItem)) {
+            middle = (this.allPage - this.showItem) + 1
+          }
+          while (i--) {
+            pag.push(middle++);
+          }
+        }
+        return pag
+      }
+    },
   }
 </script>
 

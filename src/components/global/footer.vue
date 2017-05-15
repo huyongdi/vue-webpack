@@ -62,13 +62,15 @@
       <li class="leftNav-img-each">
         <span class="leftNav-img leftNav-img-panel"></span>
         <div class="showDiv hide border-bot-d3 border-rig-d3">
-          <router-link class="text-content" to="/panel">产&nbsp;&nbsp;&nbsp;品</router-link>
+          <router-link class="text-content" to="/panel" target="_blank">产&nbsp;&nbsp;&nbsp;品</router-link>
         </div>
       </li>
       <li class="leftNav-img-each hpo">
         <span class="leftNav-img leftNav-img-hpo"></span>
-        <div class="showDiv   hide">
-          <a class="text-content singleA border-rig-d3" href="#">表型分析</a>
+        <div class="showDiv  hide twoChild">
+          <router-link class="text-content singleA border-rig-d3" to="/phenoType" target="_blank">
+            表型分析
+          </router-link>
           <a class="text-content border-bot-d3 border-rig-d3 singleA" target="_blank" href="http://chinahpo.org"
              style="border-top: none">中文HPO</a>
         </div>
@@ -129,11 +131,11 @@
   }
 
   .nav-content {
+    z-index: 100;
     width: 56px;
     height: 100%;
     margin-top: -60px;
     position: fixed;
-    /*position: absolute;*/
     background-color: #258dc1;
     display: flex;
     text-align: center;
@@ -290,21 +292,19 @@
   }
 
   .nav .home {
-    border-top: 1px solid #fff;
-    border-bottom: 1px solid #fff;
     margin-bottom: 15px;
   }
 
   .analyze-data, .analyze-gene {
-    border-top: 1px solid #fff;
+
   }
 
   .analyze-mutate {
-    border-bottom: 1px solid #fff;
+
   }
 
   .analyze-job {
-    border-bottom: 1px solid #fff;
+
     margin-bottom: 15px;
   }
 
@@ -323,6 +323,10 @@
 
   .leftNav-analyze-a {
     line-height: 25px;
+  }
+
+  .twoChild{
+    height: 110px;
   }
 
 </style>
