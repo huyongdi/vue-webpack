@@ -20,7 +20,7 @@
       <table class="table table-striped myTable">
         <thead>
         <tr>
-          <th style="">基因ID</th>
+          <th style="min-width: 60px">基因ID</th>
           <th style="">基因名</th>
           <th style="">别名</th>
           <th style="">常用转录本</th>
@@ -74,7 +74,7 @@
           </td>
           <td>
             <div v-for="single in row.cov5">
-              {{single}}
+              {{single|getCov5}}
             </div>
           </td>
         </tr>
@@ -173,6 +173,21 @@
         this.beforeCurrent = page ? page : this.beforeCurrent;
         this.geneAjax();
       },
+    },
+    filters:{
+      getCov5:function (cov5) {
+        var index= cov5.indexOf(':');
+        var first = cov5.substring(0,index);
+        var last = parseFloat(cov5.substring(index+1,cov5.length));
+        if(last == 1){
+          return cov5
+        }else{
+          last = last.toFixed(4);
+          console.log(first+': '+last);
+          return first+': '+last;
+        }
+
+      }
     },
     computed: {
       pages: function () { //计算属性

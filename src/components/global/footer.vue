@@ -1,9 +1,9 @@
 <template>
   <div class="nav-content">
     <ul class="nav navbar-nav navbar-center">
-      <li class="leftNav-img-each home">
+      <li class="leftNav-img-each home" :class="{'bc-blue':inHome}">
         <span class="leftNav-img leftNav-img-home"></span>
-        <div class="showDiv homeDiv hide">
+        <div class="showDiv homeDiv hide" :class="{'bc-blue':inHome}">
           <!--<a class="text-content" href="">首&nbsp;&nbsp;&nbsp;页</a>-->
           <router-link class="text-content" to="/">首&nbsp;&nbsp;&nbsp;页</router-link>
         </div>
@@ -61,12 +61,12 @@
       </li>
       <li class="leftNav-img-each" :class="{'bc-fff':inPanel}">
         <span class="leftNav-img leftNav-img-panel" :class="{'leftNav-img-panel-blue':inPanel}"></span>
-        <div class="showDiv hide border-bot-d3 border-rig-d3" >
+        <div class="showDiv hide border-bot-d3 border-rig-d3">
           <router-link class="text-content" to="/panel" target="_blank">产&nbsp;&nbsp;&nbsp;品</router-link>
         </div>
       </li>
       <li class="leftNav-img-each hpo" :class="{'bc-fff':inPheno}">
-        <span class="leftNav-img leftNav-img-hpo" :class="{'leftNav-img-hpo-blue':inPheno}" ></span>
+        <span class="leftNav-img leftNav-img-hpo" :class="{'leftNav-img-hpo-blue':inPheno}"></span>
         <div class="showDiv  hide twoChild">
           <router-link class="text-content singleA border-rig-d3" to="/phenoType" target="_blank">
             表型分析
@@ -94,41 +94,46 @@
           software: [],
           tool: [],
         },
-        inGene:'',
-        inPanel:'',
-        inPheno:'',
-        inMutate:'',
+        inGene: '',
+        inPanel: '',
+        inPheno: '',
+        inMutate: '',
+        inHome: ''
       }
     },
-    mounted:function () {  //兼容刷新的时候
+    mounted: function () {  //兼容刷新的时候
       const currentPath = this.$router.currentRoute.name;
-      if(currentPath.includes('gene')){
+      if (currentPath.includes('gene')) {
         this.inGene = true
-      }else if(currentPath.includes('panel')){
+      } else if (currentPath.includes('panel')) {
         this.inPanel = true
-      }else if(currentPath.includes('pheno')){
+      } else if (currentPath.includes('pheno')) {
         this.inPheno = true
-      }else if(currentPath.includes('mutate')){
+      } else if (currentPath.includes('mutate')) {
         this.inMutate = true
+      } else if (currentPath.includes('home')) {
+        this.inHome = true
       }
     },
-    watch:{
+    watch: {
       '$route' (to) {
         const currentPath = to.name;
         this.inGene = '';
         this.inPanel = '';
         this.inPheno = '';
         this.inMutate = '';
-        if(currentPath.includes('gene')){
+        this.inHome = '';
+        if (currentPath.includes('gene')) {
           this.inGene = true
-        }else if(currentPath.includes('panel')){
+        } else if (currentPath.includes('panel')) {
           this.inPanel = true
-        }else if(currentPath.includes('pheno')){
+        } else if (currentPath.includes('pheno')) {
           this.inPheno = true
-        }else if(currentPath.includes('mutate')){
+        } else if (currentPath.includes('mutate')) {
           this.inMutate = true
+        } else if(currentPath.includes('home')){
+          this.inHome = true
         }
-      //this.notLogin = localStorage.uname
       }
     },
     created: function () {
@@ -241,7 +246,7 @@
     border-bottom: 1px solid #d3d3d3;
   }
 
-  .bc-fff{
+  .bc-fff {
     background-color: #fff;
   }
 
@@ -286,7 +291,7 @@
     background: url(../../img/gene-white.png) no-repeat center;
   }
 
-  .leftNav-img-gene-blue{
+  .leftNav-img-gene-blue {
     background: url(../../img/gene-blue.png) no-repeat center;
   }
 
@@ -299,7 +304,7 @@
     background: url(../../img/panel-white.png) no-repeat center;
   }
 
-  .leftNav-img-panel-blue{
+  .leftNav-img-panel-blue {
     background: url(../../img/panel-blue.png) no-repeat center;
   }
 
@@ -312,7 +317,7 @@
     background: url(../../img/hpo-white.png) no-repeat center;
   }
 
-  .leftNav-img-hpo-blue{
+  .leftNav-img-hpo-blue {
     background: url(../../img/hpo-blue.png) no-repeat center;
   }
 
@@ -325,7 +330,7 @@
     background: url(../../img/mutate-white.png) no-repeat center;
   }
 
-  .leftNav-img-mutate-blue{
+  .leftNav-img-mutate-blue {
     background: url(../../img/mutate-blue.png) no-repeat center;
   }
 
@@ -338,6 +343,10 @@
   }
 
   .leftNav-img-each.home:hover {
+    background-color: #00a1e9;
+  }
+
+  .bc-blue {
     background-color: #00a1e9;
   }
 
@@ -379,7 +388,7 @@
     line-height: 25px;
   }
 
-  .twoChild{
+  .twoChild {
     height: 110px;
   }
 
