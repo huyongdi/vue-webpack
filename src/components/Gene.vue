@@ -1,5 +1,6 @@
 <template>
   <div class="right-content">
+    <loading v-if="loading"></loading>
     <div class="locationShow">
       <div class="navTitle">
         <span class="gene-small"></span>
@@ -34,7 +35,7 @@
         <tr v-for="(row , rowIndex) in list_gene" :key="row.geneId">
           <td>
             <!--<a class="color-a" :href="'../knowledge/geneDetail.html?&geneId='+row.geneId" target="_blank" title="查看详情">{{row.geneId}}</a>-->
-            <router-link class="po" :to="{ path: '/geneDetail', query: { geneId: row.geneId}}">{{row.geneId}}
+            <router-link class="po" target="_blank" :to="{ path: '/geneDetail', query: { geneId: row.geneId}}">{{row.geneId}}
             </router-link>
           </td>
           <td>{{row.symbol}}</td>
@@ -43,7 +44,7 @@
           <td><span v-show='!!row.dbXrefs.MIM' class="text-danger">*</span>{{row.dbXrefs.MIM}}</td>
           <td>
             <router-link v-if="row.panels.length != 0" v-for="panelItem in row.panels" :key="panelItem.panel.name_cn"
-                         class="block"
+                         class="block" target="_blank"
                          :to="{path:'/panel',query:{p:panelItem.panel.code,sp:panelItem.subpanel.code}}">
               {{panelItem.subpanel.code}}-{{panelItem.subpanel.name_cn}}({{panelItem.panel.code}}-{{panelItem.panel.name_cn}})
             </router-link>
@@ -56,7 +57,7 @@
                 {{diseaseSingle.phenotype}}
                 <!--<a :href="'../knowledge/geneOmDetail.html?&omId='+diseaseSingle.omim.mimNumber"-->
                 <!--class="color-a">({{diseaseSingle.omim.mimNumber}})</a>-->
-                <router-link :to="{path:'/geneOmDetail',query:{omId:diseaseSingle.omim.mimNumber}}">
+                <router-link target="_blank" :to="{path:'/geneOmDetail',query:{omId:diseaseSingle.omim.mimNumber}}">
                   ({{diseaseSingle.omim.mimNumber}})
                 </router-link>
               </div>
@@ -66,7 +67,7 @@
                 {{diseaseSingle.phenotype}}
                 <!--<a :href="'../knowledge/geneOmDetail.html?&omId='+diseaseSingle.omim.mimNumber"-->
                 <!--class="color-a">({{diseaseSingle.omim.mimNumber}})</a>-->
-                <router-link :to="{path:'/geneOmDetail',query:{omId:diseaseSingle.omim.mimNumber}}">
+                <router-link target="_blank" :to="{path:'/geneOmDetail',query:{omId:diseaseSingle.omim.mimNumber}}">
                   ({{diseaseSingle.omim.mimNumber}})
                 </router-link>
               </div>
@@ -81,11 +82,11 @@
         </tbody>
       </table>
 
-      <div class="spinner" v-if="loading">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
-      </div>
+      <!--<div class="spinner" v-if="loading">-->
+        <!--<div class="bounce1"></div>-->
+        <!--<div class="bounce2"></div>-->
+        <!--<div class="bounce3"></div>-->
+      <!--</div>-->
 
       <div class="text-center" v-show="!!allPage">
         <nav>
@@ -159,6 +160,7 @@
       },
       onEnter: function () {
         this.$route.query.query = this.inputValue;
+        console.log(this.$route.query.query)
         this.$route.query.p = 1;
         this.current = 1;
         this.geneAjax();
@@ -176,14 +178,13 @@
     },
     filters:{
       getCov5:function (cov5) {
-        var index= cov5.indexOf(':');
-        var first = cov5.substring(0,index);
-        var last = parseFloat(cov5.substring(index+1,cov5.length));
-        if(last == 1){
+        const index= cov5.indexOf(':');
+        let first = cov5.substring(0,index);
+        let last = parseFloat(cov5.substring(index+1,cov5.length));
+        if(last === 1){
           return cov5
         }else{
           last = last.toFixed(4);
-          console.log(first+': '+last);
           return first+': '+last;
         }
 

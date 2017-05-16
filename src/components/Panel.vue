@@ -1,5 +1,6 @@
 <template>
   <div class="right-content">
+    <loading v-if="location"></loading>
     <div class="locationShow">
       <div class="navTitle">
         <span class="panel-small"></span>
@@ -19,7 +20,8 @@
       </div>
       <div class="allPanel">
         <ul class="nav panelList" id="allPanel">
-          <li v-if="panel.subpanels.length != 1" class="panelOne" v-for="(panel,index) in panels" @click="subPanelShow">
+          <li v-if="panel.subpanels.length != 1" :data-panelcode="panel.code" class="panelOne"
+              v-for="(panel,index) in panels" @click="subPanelShow">
             <a class="panelTitle" role="button" @click.prevent="">
               <span class="arrows arrowsUp"></span>
               <span class="panelShow" :data-panel="panel.code">{{panel.name_cn}}</span>
@@ -32,7 +34,7 @@
             </ul>
           </li>
           <li v-else @click="showRight" class="panelOne" :data-subpanelcode=panel.subpanels[0].code>
-            <a class="panelTitle" role="button" href="#">
+            <a class="panelTitle" role="button" @click.prevent="">
               <span class="arrows arrowsUp"></span>
               <span class="panelShow" :data-panel="panel.code">{{panel.name_cn}}</span>
             </a>
@@ -61,12 +63,12 @@
               <span>{{single.disease.parent}}</span>
             </td>
             <td>
-                                <span>
-                                <a href="#" data-toggle="tooltip" data-placement="top" title=""
-                                   data-original-title="single.disease.name_en">
-                                    {{single.disease.name_cn}}
-                                </a>
-                                </span>
+              <span>
+                 <a href="#" data-toggle="tooltip" data-placement="top" class="a-color" @click.prevent=""
+                    data-original-title="single.disease.name_en">
+                 {{single.disease.name_cn}}
+                 </a>
+               </span>
             </td>
             <td>
               <div v-for="gene in single.genes">{{gene.geneId}}</div>
@@ -91,12 +93,6 @@
           </tr>
           </tbody>
         </table>
-
-        <div class="spinner" v-if="loading">
-          <div class="bounce1"></div>
-          <div class="bounce2"></div>
-          <div class="bounce3"></div>
-        </div>
 
       </div>
 
@@ -145,12 +141,37 @@
       }
     },
     updated: function () {
+      const _vue = this;
+      $('[data-toggle="tooltip"]').tooltip();
       if (this.isFirst) { //只有第一次更新视图的时候（左边更新影响的）需要这样请求列表
         /*如果从基因页面跳转过来的*/
         if (this.$route.query.sp) {
+          const pCodeParam = this.$route.query.p;
+          const spCodeParam = this.$route.query.sp;
+          $(".panelOne").each(function () {
+            const pCode = $(this).data("panelcode");
+            if (pCode === pCodeParam) {
+              $(this).find('.arrows').removeClass('arrowsUp').addClass('arrowsDown');
+              $(this).find('.hideUl').removeClass('hide')
+            }
+            $(this).find('.subPanel').each(function () {
+              const spCode = $(this).data('subpanelcode');
+              if (spCode === spCodeParam) {
+                $(this).addClass('onSubPanel');
+                _vue.subPanelCode = spCodeParam;
+                _vue.$axios({
+                  url: _vue.subpanelDisease + '?subpanel=' + spCodeParam
+                }).then(function (resp) {
+                  _vue.allPage = Math.ceil(resp.data.count / 20);
+                  _vue.list_subPanel = resp.data.results;
+                  _vue.loading = false;
+                  _vue.isFirst = 0;
+                });
+              }
+            })
+          });
+          return;
         }
-        $('[data-toggle="tooltip"]').tooltip();
-        const _vue = this;
         const $first = $("#allPanel").find(".panelOne").first().find('.hideUl').find('.subPanel').first();
         const firstSubpanelCode = $first.data("subpanelcode");
         $first.addClass('onSubPanel');

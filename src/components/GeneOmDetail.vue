@@ -71,7 +71,7 @@
 
       <div class="gene-information">
         <span class="gene-information-title">表型信息</span>
-        <table class="table" style="margin: 0 50px">
+        <table class="table table-bordered" style="margin: 0 50px">
           <thead>
           <tr>
             <th>#</th>
@@ -100,7 +100,7 @@
       <div class="gene-information">
         <span class="gene-information-title">CHPO信息</span>
         <div class="gene-content">
-          <table class="table table-striped font-12">
+          <table class="table table-bordered table-striped font-12">
             <thead>
             <tr>
               <th>HPO ID</th>

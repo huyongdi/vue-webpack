@@ -1,6 +1,6 @@
 <template>
   <div class="right-content">
-
+    <loading v-if="loading"></loading>
     <div class="locationShow">
       <div class="navTitle">
         <span class="database-small"></span>
@@ -22,7 +22,6 @@
           </div>
         </div>
       </div>
-
       <div class="gene-information">
         <span class="gene-information-title">人群频率</span>
         <div class="gene-content">
@@ -428,6 +427,7 @@
 </template>
 
 <script>
+  import Vue from 'vue'
   const echarts = require('echarts');
   export default {
     data: function () {
@@ -445,6 +445,7 @@
         type_0: 0,
         type_1: 0,
         type_2: 0,
+        loading:true
       }
     },
     created: function () {
@@ -471,6 +472,7 @@
           $("#cutAread").removeClass('hide');
           this.dbData = this.basicResp.splicing.DBscsnv;
           this.spiData = this.basicResp.splicing.Spidex;
+          this.loading =false
         }
       },
       fillMito: function () {

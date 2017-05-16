@@ -1,5 +1,6 @@
 <template>
   <div class="right-content">
+    <loading v-if="loading"></loading>
     <div class="locationShow">
       <div class="navTitle">
         <span class="gene-small"></span>
@@ -156,12 +157,6 @@
             </div>
           </div>
         </div>
-
-      <div class="spinner hide" id="loading_panelList">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
-      </div>
     </div>
   </div>
 </template>
@@ -175,7 +170,7 @@
         omimData: [],
         geneData: '',
         location: '',
-        loading: '',
+        loading: true,
         sortArr : ["inheritance", "growth", "growthHeight", "growthWeight", "growthOther",
           "headAndNeck", "headAndNeckHead", "headAndNeckFace", "headAndNeckEars", "headAndNeckEyes",
           "headAndNeckNose", "headAndNeckMouth", "headAndNeckTeeth", "headAndNeckNeck", "cardiovascular",
@@ -241,6 +236,7 @@
                   url: 'knowledge/hpo/' + data3.hpo + '/',
                 }).then(function (resp) {
                   data3.hpoName = resp.data.titles.chinese;
+                  _vue.loading = false;
                 })
               }
             })

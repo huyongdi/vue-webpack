@@ -10,6 +10,16 @@
 
   import header from './components/global/header'
   import footer from './components/global/footer'
+  import Vue from  'vue'
+
+  Vue.component('loading', {
+    template: '<div class="spinner">' +
+    '<div class="bounce1"></div>' +
+    '<div class="bounce2"></div>' +
+    '<div class="bounce3"></div> ' +
+    '</div>'
+  });
+
   export default {
     name: 'app',
     components: {
@@ -31,6 +41,7 @@
       }
     }
   }
+
 </script>
 
 <style>
@@ -143,7 +154,7 @@
     display: none;
   }
 
-  a.a-color,a.a-color:focus,a.a-color:hover{
+  html body a.a-color,html body a.a-color:focus,html body a.a-color:hover{
     color: inherit;
   }
 
@@ -163,7 +174,9 @@
   /*加载动画*/
 
   .spinner {
-    margin: 50px auto 0;
+    position: fixed;
+    top: 50%;
+    left: 50%;
     width: 150px;
     text-align: center;
   }
