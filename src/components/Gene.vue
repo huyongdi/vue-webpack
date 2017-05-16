@@ -51,18 +51,24 @@
           <td>
             <div v-for="diseaseSingle in row.phenotypeMap">
               <div v-if="diseaseSingle.inheritances.gene.length!=0">
-                <a class="po font-700" data-toggle="tooltip" data-placement="top"
+                <a class="po font-700 a-color" data-toggle="tooltip" data-placement="top"
                    :data-original-title="diseaseSingle.inheritances.gene.join(',')">[{{diseaseSingle.inheritances.gene_ab.join(',')}}]</a>
                 {{diseaseSingle.phenotype}}
-                <a :href="'../knowledge/geneOmDetail.html?&omId='+diseaseSingle.omim.mimNumber"
-                   class="color-a">({{diseaseSingle.omim.mimNumber}})</a>
+                <!--<a :href="'../knowledge/geneOmDetail.html?&omId='+diseaseSingle.omim.mimNumber"-->
+                <!--class="color-a">({{diseaseSingle.omim.mimNumber}})</a>-->
+                <router-link :to="{path:'/geneOmDetail',query:{omId:diseaseSingle.omim.mimNumber}}">
+                  ({{diseaseSingle.omim.mimNumber}})
+                </router-link>
               </div>
               <div v-else>
-                <a class="po font-700" data-toggle="tooltip" data-placement="top"
+                <a class="po font-700 a-color" data-toggle="tooltip" data-placement="top"
                    :data-original-title="diseaseSingle.inheritances.phenotype.join(',')">[{{diseaseSingle.inheritances.phenotype_ab.join(',')}}]</a>
                 {{diseaseSingle.phenotype}}
-                <a :href="'../knowledge/geneOmDetail.html?&omId='+diseaseSingle.omim.mimNumber"
-                   class="color-a">({{diseaseSingle.omim.mimNumber}})</a>
+                <!--<a :href="'../knowledge/geneOmDetail.html?&omId='+diseaseSingle.omim.mimNumber"-->
+                <!--class="color-a">({{diseaseSingle.omim.mimNumber}})</a>-->
+                <router-link :to="{path:'/geneOmDetail',query:{omId:diseaseSingle.omim.mimNumber}}">
+                  ({{diseaseSingle.omim.mimNumber}})
+                </router-link>
               </div>
             </div>
           </td>
@@ -122,7 +128,7 @@
       }
     },
     created: function () {
-      this.geneAjax()
+      this.geneAjax();
     },
     methods: {
       fillData: function (resp) {

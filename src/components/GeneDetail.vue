@@ -227,9 +227,6 @@
     },
     mounted: function () {
       const _vue = this;
-      console.log(11);
-      console.log(localStorage.uname);
-      console.log();
       this.$axios({
         method: "get",
         url: 'knowledge/gene/' + this.geneId + '/',

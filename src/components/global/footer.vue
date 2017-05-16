@@ -53,20 +53,20 @@
       </li>
       <!--分析页面结束-->
 
-      <li class="leftNav-img-each analyze-gene">
-        <span class="leftNav-img leftNav-img-gene"></span>
+      <li class="leftNav-img-each analyze-gene" :class="{'bc-fff':inGene}" id="li-gene">
+        <span class="leftNav-img leftNav-img-gene" :class="{'leftNav-img-gene-blue':inGene}"></span>
         <div class="showDiv hide border-bot-d3 border-rig-d3">
           <router-link class="text-content" to="/gene">基&nbsp;&nbsp;&nbsp;因</router-link>
         </div>
       </li>
-      <li class="leftNav-img-each">
-        <span class="leftNav-img leftNav-img-panel"></span>
-        <div class="showDiv hide border-bot-d3 border-rig-d3">
+      <li class="leftNav-img-each" :class="{'bc-fff':inPanel}">
+        <span class="leftNav-img leftNav-img-panel" :class="{'leftNav-img-panel-blue':inPanel}"></span>
+        <div class="showDiv hide border-bot-d3 border-rig-d3" >
           <router-link class="text-content" to="/panel" target="_blank">产&nbsp;&nbsp;&nbsp;品</router-link>
         </div>
       </li>
-      <li class="leftNav-img-each hpo">
-        <span class="leftNav-img leftNav-img-hpo"></span>
+      <li class="leftNav-img-each hpo" :class="{'bc-fff':inPheno}">
+        <span class="leftNav-img leftNav-img-hpo" :class="{'leftNav-img-hpo-blue':inPheno}" ></span>
         <div class="showDiv  hide twoChild">
           <router-link class="text-content singleA border-rig-d3" to="/phenoType" target="_blank">
             表型分析
@@ -75,17 +75,16 @@
              style="border-top: none">中文HPO</a>
         </div>
       </li>
-      <li class="leftNav-img-each analyze-mutate">
-        <span class="leftNav-img leftNav-img-mutate"></span>
+      <li class="leftNav-img-each analyze-mutate" :class="{'bc-fff':inMutate}">
+        <span class="leftNav-img leftNav-img-mutate" :class="{'leftNav-img-mutate-blue':inMutate}"></span>
         <div class="showDiv border-rig-d3 border-bot-d3 hide">
-          <a class="text-content" href="#">变&nbsp;&nbsp;&nbsp;异</a>
+          <router-link class="text-content" to="/mutate">变&nbsp;&nbsp;&nbsp;异</router-link>
         </div>
       </li>
     </ul>
   </div>
 </template>
 <script>
-
   export default {
     name: 'footer',
     data: function () {
@@ -93,8 +92,43 @@
         list: {
           pipeline: [],
           software: [],
-          tool: []
+          tool: [],
+        },
+        inGene:'',
+        inPanel:'',
+        inPheno:'',
+        inMutate:'',
+      }
+    },
+    mounted:function () {  //兼容刷新的时候
+      const currentPath = this.$router.currentRoute.name;
+      if(currentPath.includes('gene')){
+        this.inGene = true
+      }else if(currentPath.includes('panel')){
+        this.inPanel = true
+      }else if(currentPath.includes('pheno')){
+        this.inPheno = true
+      }else if(currentPath.includes('mutate')){
+        this.inMutate = true
+      }
+    },
+    watch:{
+      '$route' (to) {
+        const currentPath = to.name;
+        this.inGene = '';
+        this.inPanel = '';
+        this.inPheno = '';
+        this.inMutate = '';
+        if(currentPath.includes('gene')){
+          this.inGene = true
+        }else if(currentPath.includes('panel')){
+          this.inPanel = true
+        }else if(currentPath.includes('pheno')){
+          this.inPheno = true
+        }else if(currentPath.includes('mutate')){
+          this.inMutate = true
         }
+      //this.notLogin = localStorage.uname
       }
     },
     created: function () {
@@ -207,6 +241,10 @@
     border-bottom: 1px solid #d3d3d3;
   }
 
+  .bc-fff{
+    background-color: #fff;
+  }
+
   .leftNav-img-home {
     background-size: 30px 29px;
     background: url(../../img/baseLeft_home.png) no-repeat center;
@@ -248,6 +286,10 @@
     background: url(../../img/gene-white.png) no-repeat center;
   }
 
+  .leftNav-img-gene-blue{
+    background: url(../../img/gene-blue.png) no-repeat center;
+  }
+
   .leftNav-img-each:hover > .leftNav-img-gene {
     background: url(../../img/gene-blue.png) no-repeat center;
   }
@@ -255,6 +297,10 @@
   .leftNav-img-panel {
     background-size: 32px 32px;
     background: url(../../img/panel-white.png) no-repeat center;
+  }
+
+  .leftNav-img-panel-blue{
+    background: url(../../img/panel-blue.png) no-repeat center;
   }
 
   .leftNav-img-each:hover > .leftNav-img-panel {
@@ -266,6 +312,10 @@
     background: url(../../img/hpo-white.png) no-repeat center;
   }
 
+  .leftNav-img-hpo-blue{
+    background: url(../../img/hpo-blue.png) no-repeat center;
+  }
+
   .leftNav-img-each:hover > .leftNav-img-hpo {
     background: url(../../img/hpo-blue.png) no-repeat center;
   }
@@ -273,6 +323,10 @@
   .leftNav-img-mutate {
     background-size: 32px 32px;
     background: url(../../img/mutate-white.png) no-repeat center;
+  }
+
+  .leftNav-img-mutate-blue{
+    background: url(../../img/mutate-blue.png) no-repeat center;
   }
 
   .leftNav-img-each:hover > .leftNav-img-mutate {

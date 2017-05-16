@@ -7,6 +7,8 @@ import Panel from '@/components/Panel'
 import Login from '@/components/Login'
 import PhenoType from '@/components/PhenotypeAna'
 import GeneOmDetail from '@/components/GeneOmDetail'
+import Mutate from '@/components/Mutate'
+import MutateDetail from '@/components/MutateDetail'
 
 Vue.use(Router);
 
@@ -39,13 +41,23 @@ export default new Router({
     },
     {
       path: '/panel',
-      name: 'Panel',
+      name: 'panel',
       component: Panel
     },
     {
       path: '/phenoType',
       name: 'phenoType',
       component: PhenoType
+    },
+    {
+      path: '/mutate',
+      name: 'mutate',
+      component: Mutate
+    },
+    {
+      path: '/mutateDetail',
+      name: 'mutateDetail',
+      component: MutateDetail
     },
   ]
 })

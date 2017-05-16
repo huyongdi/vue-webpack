@@ -124,10 +124,6 @@
           })
         });
 
-
-
-        console.log(optInputArr)
-        console.log(this.ajaxArr_opt)
         $.each(optInputArr, function (i, value) {
           $.each(_vue.ajaxArr_opt, function (n, data) {
             if (value === data.name) {

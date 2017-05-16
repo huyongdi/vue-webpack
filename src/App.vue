@@ -18,7 +18,8 @@
     },
     data:function () {
       return{
-        notLogin:''
+        notLogin:'',
+        inGene:''
       }
     },
     created:function () { //刷新当前页面时候判断需不需要加载头部
@@ -140,6 +141,23 @@
 
   .none{
     display: none;
+  }
+
+  a.a-color,a.a-color:focus,a.a-color:hover{
+    color: inherit;
+  }
+
+  .font-700{
+    font-weight: 700;
+  }
+
+  .myRow{
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .font-14{
+    font-size: 14px;
   }
 
   /*加载动画*/
