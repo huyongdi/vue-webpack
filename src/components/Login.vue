@@ -75,7 +75,7 @@
           localStorage.uname = _vue.inputName;
           localStorage.password = _vue.inputPassword;
           _vue.$router.go(-1);
-        }).catch(function (resp) {
+        }).catch(function () {
           alert('用户名或密码错误')
         })
       }

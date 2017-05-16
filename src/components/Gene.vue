@@ -1,16 +1,17 @@
 <template>
   <div class="right-content">
     <loading v-if="loading"></loading>
-    <div class="locationShow">
-      <div class="navTitle">
-        <span class="gene-small"></span>
-        <span class="navTitle-span">基因</span>
-      </div>
-      <div class="detailTitle">
-        <span>您现在的位置：</span>
-        <span>数据库</span>&nbsp;>&nbsp;<span id="database-title">基因</span>
-      </div>
-    </div>
+    <!--<div class="locationShow">-->
+      <!--<div class="navTitle">-->
+        <!--<span class="gene-small"></span>-->
+        <!--<span class="navTitle-span">基因</span>-->
+      <!--</div>-->
+      <!--<div class="detailTitle">-->
+        <!--<span>您现在的位置：</span>-->
+        <!--<span>数据库</span>&nbsp;>&nbsp;<span id="database-title">基因</span>-->
+      <!--</div>-->
+    <!--</div>-->
+    <location imgClass="gene-small" currentPage="基因"></location>
     <!--基因列表-->
     <div class="detailShow" id="geneList">
       <div class="searchBorder" id="search_gene">
@@ -82,12 +83,6 @@
         </tbody>
       </table>
 
-      <!--<div class="spinner" v-if="loading">-->
-        <!--<div class="bounce1"></div>-->
-        <!--<div class="bounce2"></div>-->
-        <!--<div class="bounce3"></div>-->
-      <!--</div>-->
-
       <div class="text-center" v-show="!!allPage">
         <nav>
           <ul class="pagination">
@@ -115,7 +110,11 @@
 </template>
 
 <script>
+  import topLocation from './global/location'
   export default {
+    components: {
+      'location': topLocation,
+    },
     name: 'gene',
     data: function () {
       return {
@@ -219,15 +218,6 @@
 </script>
 
 <style scoped>
-  .gene-small {
-    float: left;
-    width: 32px;
-    height: 32px;
-    background: url(../img/gene-blue.png) no-repeat center;
-    background-size: 100% 100%;
-    margin-top: 5px;
-  }
-
   .input_hasImg {
     display: inline-block;
     width: 400px;

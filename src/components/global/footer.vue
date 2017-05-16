@@ -22,21 +22,21 @@
       <li class="leftNav-img-each">
         <span class="leftNav-img leftNav-img-analyze"></span>
         <div class="showDiv analyze-div hide">
-          <ul class="analyze-ul">
+          <ul class="analyze-ul" v-if="list.pipeline.length !=0">
             <li class="leftNav-analyze-title">分析流程</li>
             <li v-for="pipelineVue in list.pipeline" class="text-content leftNav-analyze-a"
                 :title=pipelineVue.comment>
               <a target="_blank" :href=pipelineVue.href_vue class="leftNav-analyze-link">{{pipelineVue.name}}</a>
             </li>
           </ul>
-          <ul class="analyze-ul">
+          <ul class="analyze-ul" v-if="list.software.length !=0">
             <li class="leftNav-analyze-title">分析软件</li>
             <li v-for="softwareVue in list.software" class="text-content leftNav-analyze-a"
                 :title=softwareVue.comment>
               <a target="_blank" :href=softwareVue.href_vue class="leftNav-analyze-link">{{softwareVue.name}}</a>
             </li>
           </ul>
-          <ul class="analyze-ul">
+          <ul class="analyze-ul" v-if="list.tool.length !=0">
             <li class="leftNav-analyze-title">实用工具</li>
             <li v-for="toolVue in list.tool" class="text-content leftNav-analyze-a" :title=toolVue.comment>
               <a target="_blank" :href=toolVue.href_vue class="leftNav-analyze-link">{{toolVue.name}}</a>
@@ -158,6 +158,22 @@
             _vue.list.tool.push(data);
           }
         });
+      }).catch(function (response) {
+        if (response instanceof Error) {
+            if(response.message.includes('401') || response.message.includes('403')){
+                alert ('用户名或密码错误');
+                localStorage.removeItem('uname');
+                localStorage.removeItem('password');
+                this.$router.push({path: '/login'})
+            }
+        } else {
+          // The request was made, but the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(response.data);
+          console.log(response.status);
+          console.log(response.headers);
+          console.log(response.config);
+        }
       });
     }
   }
@@ -219,8 +235,8 @@
   }
 
   .analyze-div {
-    width: 460px;
-    height: 130px;
+    width: auto;
+    height: auto;
     border-bottom: 1px solid #d3d3d3;
     border-right: 1px solid #d3d3d3;
   }
@@ -358,14 +374,6 @@
     margin-bottom: 15px;
   }
 
-  .analyze-data, .analyze-gene {
-
-  }
-
-  .analyze-mutate {
-
-  }
-
   .analyze-job {
 
     margin-bottom: 15px;
@@ -376,6 +384,7 @@
     margin-left: -20px;
     text-align: left;
     width: 170px;
+    margin-bottom: 15px;
   }
 
   .leftNav-analyze-title {
