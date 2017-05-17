@@ -41,6 +41,6 @@
     height: 36px;
     background: url(../../img/data-sreach-bc.png) no-repeat center;
     background-size: 36px 36px;
-    margin: 0 0 4px 8px;
+    margin: 0 0 2px 8px;
   }
 </style>

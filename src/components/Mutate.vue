@@ -1,17 +1,9 @@
 <template>
   <div class="right-content">
     <location imgClass="mutate-small" currentPage="变异"></location>
-
     <div class="detailShow">
-      <!--<div class="searchBorder" id="search_gene">-->
-        <!--<input type="text" v-model="mutateInput" class="form-control input_hasImg" placeholder="11:119052976:C:T"-->
-               <!--@keyup.enter="onEnter">-->
-        <!--<button class="search-btn myBtn" @click="onEnter"></button>-->
-      <!--</div>-->
       <search :inputValue='mutateInput' @onEnter="onEnter"></search>
-
     </div>
-
   </div>
 </template>
 
