@@ -1,14 +1,10 @@
 <template>
   <div class="right-content">
-    <loading v-if="location"></loading>
+    <loading v-if="loading"></loading>
     <location imgClass="panel-small" currentPage="Panel"></location>
     <!--panel列表-->
     <div class="detailShow" id="panelList">
-
-      <div class="searchBorder" id="search_panel">
-        <input type="text" class="form-control input_hasImg" @keyup.enter="onEnter" v-model="inputValue">
-        <button class="search-btn myBtn" @click="onEnter"></button>
-      </div>
+      <search :inputValue='inputValue' @onEnter="onEnter"></search>
       <div class="allPanel">
         <ul class="nav panelList" id="allPanel">
           <li v-if="panel.subpanels.length != 1" :data-panelcode="panel.code" class="panelOne"
@@ -113,9 +109,11 @@
 
 <script>
   import topLocation from './global/location'
+  import search from './global/search.vue'
   export default {
     components: {
       'location': topLocation,
+      'search': search,
     },
     name: 'panel',
     data: function () {
@@ -126,7 +124,7 @@
         list_subPanel: [],
         loading: true,
         subPanelCode: 0,
-        inputValue: '',
+        inputValue: this.$route.query.sp?this.$route.query.sp:'',
         isFirst: 0,
 
         current: 1,
@@ -223,7 +221,7 @@
         const _vue = this;
         this.list_subPanel = [];
         this.loading = true;
-        this.subPanelUrl = this.inputValue ? this.subpanelDisease + '?query=' + decodeURI(this.inputValue) :
+        this.subPanelUrl = this.inputValue ? this.subpanelDisease + '?subpanel=' + decodeURI(this.inputValue) :
           this.subpanelDisease + '?subpanel=' + this.subPanelCode,
           this.subPanelUrl = this.$route.query.page ? this.subPanelUrl + '&page=' + this.$route.query.page : this.subPanelUrl;
         this.$axios({
@@ -246,7 +244,8 @@
         this.$route.query.page = this.current;
         this.getSubpanelList();
       },
-      onEnter: function () {
+      onEnter: function (data) {
+        this.inputValue = data;
         this.$route.query.page = 1;
         this.current = 1;
         this.beforeCurrent = 1;
@@ -280,9 +279,6 @@
 </script>
 
 <style scoped>
-  .baseRight .input_hasImg {
-    border-right: none;
-  }
 
   .allPanel {
     margin-top: 40px;
@@ -346,9 +342,6 @@
     background-size: 16px 16px;
   }
 
-  .geneAlias {
-    width: 25%;
-  }
 
   .table-gene.table > tbody > tr > td,
   .table-gene.table > tbody > tr > th,
@@ -365,30 +358,6 @@
 
   .table-task.table > thead > tr > th {
     border-bottom: none;
-  }
-
-  .search-btn {
-    display: inline-block;
-    width: 36px;
-    height: 36px;
-    background: url("../img/data-sreach-bc.png") no-repeat center;
-    background-size: 36px 36px;
-    margin: 0 0 4px 8px;
-  }
-
-  .searchBorder {
-    border: 1px solid #dedfe0;
-    width: 460px;
-    height: 45px;
-  }
-
-  .detailShow .input_hasImg {
-    display: inline-block;
-    width: 400px;
-    border: none;
-    height: 43px;
-    outline: none;
-    box-shadow: none;
   }
 
   .pagination li span.toPage {

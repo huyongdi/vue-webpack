@@ -4,10 +4,7 @@
     <location imgClass="gene-small" currentPage="基因"></location>
     <!--基因列表-->
     <div class="detailShow" id="geneList">
-      <div class="searchBorder" id="search_gene">
-        <input type="text" class="form-control input_hasImg" placeholder="" v-model="inputValue" @keyup.enter="onEnter">
-        <button class="search-btn myBtn" @click.stop="onEnter"></button>
-      </div>
+      <search :inputValue='inputValue' @onEnter="onEnter"></search>
 
       <table class="table table-striped myTable">
         <thead>
@@ -93,17 +90,17 @@
           </ul>
         </nav>
       </div>
-
-
     </div>
   </div>
 </template>
 
 <script>
   import topLocation from './global/location'
+  import search from './global/search.vue'
   export default {
     components: {
       'location': topLocation,
+      'search': search,
     },
     name: 'gene',
     data: function () {
@@ -147,11 +144,13 @@
           _vue.fillData(resp.data);
         });
       },
-      onEnter: function () {
+      onEnter: function (data) {
+        this.inputValue = data;
         this.$route.query.query = this.inputValue;
-        console.log(this.$route.query.query)
+        console.log(this.$route.query.query);
         this.$route.query.p = 1;
         this.current = 1;
+        this.beforeCurrent = 1;
         this.geneAjax();
       },
       goTo: function (page) {
@@ -208,34 +207,6 @@
 </script>
 
 <style scoped>
-  .input_hasImg {
-    display: inline-block;
-    width: 400px;
-    border: none;
-    height: 43px;
-    outline: none;
-    box-shadow: none;
-  }
-
-  .search-btn {
-    display: inline-block;
-    width: 36px;
-    height: 36px;
-    background: url(../img/data-sreach-bc.png) no-repeat center;
-    background-size: 36px 36px;
-    margin: 0 0 4px 8px;
-  }
-
-  .table-gene {
-    margin-top: 40px;
-  }
-
-  .searchBorder {
-    border: 1px solid #dedfe0;
-    width: 460px;
-    height: 45px;
-  }
-
   .table-gene.table > tbody > tr > td,
   .table-gene.table > tbody > tr > th,
   .table-gene.table > tfoot > tr > td,
@@ -255,21 +226,6 @@
 
   .table-task.table > thead > tr > th {
     border-bottom: none;
-  }
-
-  .search-btn {
-    display: inline-block;
-    width: 36px;
-    height: 36px;
-    background: url("../img/data-sreach-bc.png") no-repeat center;
-    background-size: 36px 36px;
-    margin: 0 0 4px 8px;
-  }
-
-  .searchBorder {
-    border: 1px solid #dedfe0;
-    width: 460px;
-    height: 45px;
   }
 
   .pagination li span.toPage {
