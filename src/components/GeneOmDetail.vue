@@ -1,16 +1,6 @@
 <template>
   <div class="right-content">
-    <div class="locationShow">
-      <div class="navTitle">
-        <span class="gene-small"></span>
-        <span class="navTitle-span">基因</span>
-      </div>
-      <div class="detailTitle">
-        <span>您现在的位置：</span>
-        <span>数据库</span>&nbsp;>&nbsp;<span id="database-title">基因</span>
-      </div>
-    </div>
-
+    <location imgClass="gene-small" currentPage="基因"></location>
     <div class="detailShow" id="singleGene">
       <div class="gene-information">
         <span class="gene-information-title">基本信息</span>
@@ -146,7 +136,11 @@
 </template>
 
 <script>
+  import topLocation from './global/location'
   export default {
+    components: {
+      'location': topLocation,
+    },
     data: function () {
       return {
         sortArr: ["inheritance", "growth", "growthHeight", "growthWeight", "growthOther",

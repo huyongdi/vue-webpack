@@ -1,16 +1,7 @@
 <template>
   <div class="right-content">
     <loading v-if="loading"></loading>
-    <div class="locationShow">
-      <div class="navTitle">
-        <span class="gene-small"></span>
-        <span class="navTitle-span">基因</span>
-      </div>
-      <div class="detailTitle">
-        <span>您现在的位置：</span>
-        <span>数据库</span>&nbsp;>&nbsp;<span id="database-title">基因</span>
-      </div>
-    </div>
+    <location imgClass="gene-small" currentPage="基因"></location>
     <!--点击基因名的单个基因信息-->
     <div class="detailShow" id="geneBasicDetail">
       <div class="gene-information" id="basicInfo">
@@ -162,7 +153,11 @@
 </template>
 
 <script>
+  import topLocation from './global/location'
   export default {
+    components: {
+      'location': topLocation,
+    },
     name: 'geneDetail',
     data: function () {
       return {

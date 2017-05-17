@@ -1,8 +1,8 @@
 {
-  "name": "omim",
+  "name": "database",
   "version": "1.0.0",
-  "description": "A Vue.js project",
-  "author": "Ying Zhu",
+  "description": "my first vue project",
+  "author": "YD H",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
@@ -14,7 +14,10 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "axios": "^0.16.1",
+    "bootstrap": "^3.3.7",
     "echarts": "^3.5.4",
+    "jquery": "^3.2.1",
     "vue": "^2.2.2",
     "vue-cli": "^2.8.1",
     "vue-router": "^2.3.0"

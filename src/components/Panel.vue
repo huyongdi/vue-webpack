@@ -1,16 +1,7 @@
 <template>
   <div class="right-content">
     <loading v-if="location"></loading>
-    <div class="locationShow">
-      <div class="navTitle">
-        <span class="panel-small"></span>
-        <span class="navTitle-span">Panel</span>
-      </div>
-      <div class="detailTitle">
-        <span>您现在的位置：</span>
-        <span>数据库</span>&nbsp;>&nbsp;<span id="database-title">panel</span>
-      </div>
-    </div>
+    <location imgClass="panel-small" currentPage="Panel"></location>
     <!--panel列表-->
     <div class="detailShow" id="panelList">
 
@@ -121,7 +112,11 @@
 </template>
 
 <script>
+  import topLocation from './global/location'
   export default {
+    components: {
+      'location': topLocation,
+    },
     name: 'panel',
     data: function () {
       return {
@@ -285,15 +280,6 @@
 </script>
 
 <style scoped>
-  .panel-small {
-    float: left;
-    width: 32px;
-    height: 32px;
-    background: url(../img/panel-blue.png) no-repeat center;
-    background-size: 100% 100%;
-    margin-top: 5px;
-  }
-
   .baseRight .input_hasImg {
     border-right: none;
   }

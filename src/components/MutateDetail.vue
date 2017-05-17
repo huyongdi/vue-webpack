@@ -1,16 +1,7 @@
 <template>
   <div class="right-content">
     <loading v-if="loading"></loading>
-    <div class="locationShow">
-      <div class="navTitle">
-        <span class="database-small"></span>
-        <span class="navTitle-span">变异详情</span>
-      </div>
-      <div class="detailTitle">
-        <span>您现在的位置：</span>
-        <span>数据库</span>&nbsp;>&nbsp;<span>变异详情</span>
-      </div>
-    </div>
+    <location imgClass="mutate-small" currentPage="变异详情"></location>
 
     <div class="detailShow mutate" id="mutate">
       <div class="gene-information">
@@ -428,8 +419,12 @@
 
 <script>
   import Vue from 'vue'
+  import topLocation from './global/location'
   const echarts = require('echarts');
   export default {
+    components: {
+      'location': topLocation,
+    },
     data: function () {
       return {
         basicResp: '',
@@ -742,15 +737,6 @@
 </script>
 
 <style scoped>
-  .database-small {
-    float: left;
-    width: 32px;
-    height: 32px;
-    background: url(../img/mutate-blue.png) no-repeat center;
-    background-size: 100% 100%;
-    margin-top: 5px;
-  }
-
   .gene-information {
     margin-top: 20px;
   }

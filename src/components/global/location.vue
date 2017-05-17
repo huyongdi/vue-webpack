@@ -16,14 +16,36 @@
         props:['imgClass','currentPage']
     }
 </script>
-
 <style scoped>
-  /*location小图*/
   .gene-small{
     float: left;
     width: 32px;
     height: 32px;
     background: url(../../img/gene-blue.png) no-repeat center;
+    background-size: 100% 100%;
+    margin-top: 5px;
+  }
+  .panel-small {
+    float: left;
+    width: 32px;
+    height: 32px;
+    background: url(../../img/panel-blue.png) no-repeat center;
+    background-size: 100% 100%;
+    margin-top: 5px;
+  }
+  .phenoType-small {
+    float: left;
+    width: 32px;
+    height: 32px;
+    background: url(../../img/hpo-blue.png) no-repeat center;
+    background-size: 100% 100%;
+    margin-top: 5px;
+  }
+  .mutate-small{
+    float: left;
+    width: 32px;
+    height: 32px;
+    background: url(../../img/mutate-blue.png) no-repeat center;
     background-size: 100% 100%;
     margin-top: 5px;
   }

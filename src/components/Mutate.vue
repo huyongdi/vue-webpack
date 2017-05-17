@@ -1,19 +1,11 @@
 <template>
   <div class="right-content">
-    <div class="locationShow">
-      <div class="navTitle">
-        <span class="gene-small"></span>
-        <span class="navTitle-span">变异</span>
-      </div>
-      <div class="detailTitle">
-        <span>您现在的位置：</span>
-        <span>数据库</span>&nbsp;>&nbsp;<span id="database-title">变异</span>
-      </div>
-    </div>
+    <location imgClass="mutate-small" currentPage="变异"></location>
 
     <div class="detailShow" id="geneList">
       <div class="searchBorder" id="search_gene">
-        <input type="text" v-model="mutateInput" class="form-control input_hasImg" placeholder="11:119052976:C:T" @keyup.enter="onEnter">
+        <input type="text" v-model="mutateInput" class="form-control input_hasImg" placeholder="11:119052976:C:T"
+               @keyup.enter="onEnter">
         <button class="search-btn myBtn" @click="onEnter"></button>
       </div>
     </div>
@@ -22,26 +14,30 @@
 </template>
 
 <script>
+  import topLocation from './global/location'
   export default {
-      data:function () {
-        return{
-            mutateInput:''
-        }
-      },
-      methods:{
-        onEnter:function () {
-          if(!this.mutateInput){
-            alert('变异位点不能为空')
-          }else{
-            this.$router.push({path: '/mutateDetail',query:{query:decodeURI(this.mutateInput)}})
-          }
+    components: {
+      'location': topLocation,
+    },
+    data: function () {
+      return {
+        mutateInput: ''
+      }
+    },
+    methods: {
+      onEnter: function () {
+        if (!this.mutateInput) {
+          alert('变异位点不能为空')
+        } else {
+          this.$router.push({path: '/mutateDetail', query: {query: decodeURI(this.mutateInput)}})
         }
       }
+    }
   }
 </script>
 
 <style scoped>
-  .gene-small{
+  .gene-small {
     float: left;
     width: 32px;
     height: 32px;
@@ -49,6 +45,7 @@
     background-size: 100% 100%;
     margin-top: 5px;
   }
+
   .detailShow {
     background-color: #fff;
     padding: 20px;

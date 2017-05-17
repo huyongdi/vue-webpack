@@ -1,16 +1,6 @@
 <template>
   <div class="right-content">
     <loading v-if="loading"></loading>
-    <!--<div class="locationShow">-->
-      <!--<div class="navTitle">-->
-        <!--<span class="gene-small"></span>-->
-        <!--<span class="navTitle-span">基因</span>-->
-      <!--</div>-->
-      <!--<div class="detailTitle">-->
-        <!--<span>您现在的位置：</span>-->
-        <!--<span>数据库</span>&nbsp;>&nbsp;<span id="database-title">基因</span>-->
-      <!--</div>-->
-    <!--</div>-->
     <location imgClass="gene-small" currentPage="基因"></location>
     <!--基因列表-->
     <div class="detailShow" id="geneList">
