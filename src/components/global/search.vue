@@ -13,7 +13,7 @@
     },
     methods: {
       sendValue: function () {
-        this.$emit('onEnter',this.childValue)
+        this.$emit('onEnter',this.childValue) //函数名和父元素的@onEnter一致
       }
     }
   }

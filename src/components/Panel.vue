@@ -69,13 +69,12 @@
               </div>
             </td>
             <td>
-                                <span>
-                                    <span v-for="(inheritanceOne,index) in single.disease.inheritance">
-                                        <span
-                                          v-if="index !==single.disease.inheritance.length-1">{{inheritanceOne}},</span>
-                                        <span v-else>{{inheritanceOne}}</span>
-                                    </span>
-                                </span>
+                 <span>
+                       <span v-for="(inheritanceOne,index) in single.disease.inheritance">
+                           <span v-if="index !==single.disease.inheritance.length-1">{{inheritanceOne}},</span>
+                           <span v-else>{{inheritanceOne}}</span>
+                       </span>
+                 </span>
             </td>
           </tr>
           </tbody>
@@ -83,26 +82,8 @@
 
       </div>
 
-      <div class="text-center" v-show="!!allPage">
-        <nav>
-          <ul class="pagination">
-            <!--上一页逻辑-->
-            <li v-if='current == 1' class='disabled'><span class=''>&laquo;上一页</span></li>
-            <li v-else @click='current-- && goTo(current--)'><span class='po'>&laquo;上一页</span></li>
-            <!--中间页码-->
-            <li v-for="index in pages" @click="goTo(index)" :class="{'active':current == index}"><span class="po">{{index}}</span>
-            </li>
-            <!--下一页逻辑-->
-            <li v-if="allPage == current || allPage == 0" class="disabled"><span class="">下一页&raquo;</span></li>
-            <li @click="current++ && goTo(current++)" :class="{'disabled':allPage == current || allPage == 0}"><span
-              class="po">下一页&raquo;</span></li>
-            <!--跳转逻辑-->
-            <li class=""><span class="po toPage">第<input v-model="beforeCurrent"
-                                                         @keyup.enter="goTo()">页/共{{allPage}}页</span>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      <pagenation :count="count" :reset="reset" @getCurrent="getCurrent"></pagenation>
+
     </div>
   </div>
 </template>
@@ -110,10 +91,13 @@
 <script>
   import topLocation from './global/location'
   import search from './global/search.vue'
+  import pagenation from './global/pagenation'
+
   export default {
     components: {
       'location': topLocation,
       'search': search,
+      'pagenation':pagenation
     },
     name: 'panel',
     data: function () {
@@ -124,13 +108,12 @@
         list_subPanel: [],
         loading: true,
         subPanelCode: 0,
-        inputValue: this.$route.query.sp?this.$route.query.sp:'',
+        inputValue: this.$route.query.sp ? this.$route.query.sp : '',
         isFirst: 0,
 
+        count:1,
         current: 1,
-        beforeCurrent: 1,
-        showItem: 10,
-        allPage: 1,
+        reset: 1,
       }
     },
     updated: function () {
@@ -155,7 +138,7 @@
                 _vue.$axios({
                   url: _vue.subpanelDisease + '?subpanel=' + spCodeParam
                 }).then(function (resp) {
-                  _vue.allPage = Math.ceil(resp.data.count / 20);
+                  _vue.count = resp.data.count;
                   _vue.list_subPanel = resp.data.results;
                   _vue.loading = false;
                   _vue.isFirst = 0;
@@ -172,7 +155,7 @@
         this.$axios({
           url: this.subpanelDisease + '?subpanel=' + firstSubpanelCode
         }).then(function (resp) {
-          _vue.allPage = Math.ceil(resp.data.count / 20);
+          _vue.count = resp.data.count;
           _vue.list_subPanel = resp.data.results;
           _vue.loading = false;
           _vue.isFirst = 0;
@@ -196,6 +179,12 @@
       })
     },
     methods: {
+      getCurrent:function (data) {
+        this.current = data;
+        this.$route.query.page=data;
+        this.reset = 0;
+        this.getSubpanelList()
+      },
       subPanelShow: function (event) {
         const $hide = $(event.target).closest('li').find('.hideUl');
         const $img = $(event.target).closest('li').find('.arrows');
@@ -214,65 +203,32 @@
         $(event.target).closest('li').addClass('onSubPanel');
         this.$route.query.page = 1;
         this.current = 1;
-        this.beforeCurrent = 1;
+        this.reset = 1;
         this.getSubpanelList();
       },
       getSubpanelList: function () {
         const _vue = this;
         this.list_subPanel = [];
         this.loading = true;
-        this.subPanelUrl = this.inputValue ? this.subpanelDisease + '?subpanel=' + decodeURI(this.inputValue) :
+        this.subPanelUrl = this.inputValue ? this.subpanelDisease + '?query=' + decodeURI(this.inputValue) :
           this.subpanelDisease + '?subpanel=' + this.subPanelCode,
           this.subPanelUrl = this.$route.query.page ? this.subPanelUrl + '&page=' + this.$route.query.page : this.subPanelUrl;
         this.$axios({
           url: this.subPanelUrl,
           method: 'get'
         }).then(function (resp) {
-          _vue.allPage = Math.ceil(resp.data.count / 20);
+          _vue.count =resp.data.count;
           _vue.list_subPanel = resp.data.results;
           _vue.loading = false;
         });
-      },
-      goTo: function (page) {
-        const index = this.beforeCurrent;
-        if (index > this.allPage || !/^\d+$/.test(index)) {
-          alert('请输入正确的页码！');
-          return
-        }
-        this.current = page ? page : index;
-        this.beforeCurrent = page ? page : this.beforeCurrent;
-        this.$route.query.page = this.current;
-        this.getSubpanelList();
       },
       onEnter: function (data) {
         this.inputValue = data;
         this.$route.query.page = 1;
         this.current = 1;
-        this.beforeCurrent = 1;
+        this.reset = 1;
         $(".onSubPanel").removeClass('onSubPanel');
         this.getSubpanelList();
-      }
-    },
-    computed: {
-      pages: function () { //计算属性
-        var pag = [],
-          i = null;
-        if (this.current < this.showItem) {
-          i = Math.min(this.showItem, this.allPage);
-          while (i) {
-            pag.unshift(i--); //把一个元素添加到数组的开头
-          }
-        } else {
-          var middle = this.current - this.showItem / 2;//从哪里开始
-          i = this.showItem;
-          if (middle > (this.allPage - this.showItem)) {
-            middle = (this.allPage - this.showItem) + 1
-          }
-          while (i--) {
-            pag.push(middle++);
-          }
-        }
-        return pag
       }
     },
   }
@@ -341,7 +297,6 @@
     background: url(../img/arrow-up.png);
     background-size: 16px 16px;
   }
-
 
   .table-gene.table > tbody > tr > td,
   .table-gene.table > tbody > tr > th,

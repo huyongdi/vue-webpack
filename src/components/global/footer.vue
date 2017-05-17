@@ -131,7 +131,7 @@
           this.inPheno = true
         } else if (currentPath.includes('mutate')) {
           this.inMutate = true
-        } else if(currentPath.includes('home')){
+        } else if (currentPath.includes('home')) {
           this.inHome = true
         }
       }
@@ -158,23 +158,14 @@
             _vue.list.tool.push(data);
           }
         });
-      }).catch(function (response) {
-        if (response instanceof Error) {
-            if(response.message.includes('401') || response.message.includes('403')){
-                alert ('用户名或密码错误');
-                localStorage.removeItem('uname');
-                localStorage.removeItem('password');
-                this.$router.push({path: '/login'})
-            }
+      }).catch(function (error) {
+        if (error.response) {
+          alert(error.response.data.detail);
         } else {
-          // The request was made, but the server responded with a status code
-          // that falls out of the range of 2xx
-          console.log(response.data);
-          console.log(response.status);
-          console.log(response.headers);
-          console.log(response.config);
+          alert(error.message);
         }
-      });
+        this.$router.push({path: '/login'})
+      })
     }
   }
 </script>

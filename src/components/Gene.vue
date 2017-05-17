@@ -70,56 +70,46 @@
         </tbody>
       </table>
 
-      <div class="text-center" v-show="!!allPage">
-        <nav>
-          <ul class="pagination">
-            <!--上一页逻辑-->
-            <li v-if='current == 1' class='disabled'><span class='color-a'>&laquo;上一页</span></li>
-            <li v-else @click='current-- && goTo(current--)'><span class='color-a'>&laquo;上一页</span></li>
-            <!--中间页码-->
-            <li v-for="index in pages" @click="goTo(index)" :class="{'active':current == index}"><span
-              class="po">{{index}}</span></li>
-            <!--下一页逻辑-->
-            <li v-if="allPage == current || allPage == 0" class="disabled"><span class="">下一页&raquo;</span></li>
-            <li @click="current++ && goTo(current++)" class="po"
-                :class="{'disabled':allPage == current || allPage == 0}">
-              <span>下一页&raquo;</span></li>
-            <!--跳转逻辑-->
-            <li class=""><span class="color-a toPage">第<input v-model="beforeCurrent" @keyup.enter="goTo()">页/共{{allPage}}页</span>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      <pagenation :count="count" :reset="reset" @getCurrent="getCurrent"></pagenation>
+
     </div>
   </div>
 </template>
 
 <script>
   import topLocation from './global/location'
-  import search from './global/search.vue'
+  import search from './global/search'
+  import pagenation from './global/pagenation'
   export default {
     components: {
       'location': topLocation,
       'search': search,
+      'pagenation':pagenation
     },
     name: 'gene',
     data: function () {
       return {
         list_gene: [],
         inputValue: this.$route.query.query ? this.$route.query.query : '',
-        current: 1,
-        beforeCurrent: 1,
-        showItem: 10,
-        allPage: 1,
-        loading: true
+        loading: true,
+
+        count:1,
+        current:1,
+        reset:0
       }
     },
     created: function () {
       this.geneAjax();
     },
     methods: {
+      getCurrent:function (data) {
+        this.current = data;
+        this.reset = 0;
+        this.geneAjax();
+      },
       fillData: function (resp) {
         const results = resp.results;
+        this.count = resp.count;
         $.each(results, function (i, value) {
           value.synonymsStr = value.synonyms.join("|");
           value.cov5 = [];
@@ -128,7 +118,6 @@
           });
         });
         this.list_gene = results;
-        this.allPage = Math.ceil(resp.count / 20);
         this.loading = false
       },
       geneAjax: function () {
@@ -149,18 +138,8 @@
         this.$route.query.query = this.inputValue;
         console.log(this.$route.query.query);
         this.$route.query.p = 1;
-        this.current = 1;
-        this.beforeCurrent = 1;
-        this.geneAjax();
-      },
-      goTo: function (page) {
-        let index = this.beforeCurrent;
-        if (index > this.allPage || !/^\d+$/.test(index)) {
-          alert('请输入正确的页码！');
-          return
-        }
-        this.current = page ? page : index;
-        this.beforeCurrent = page ? page : this.beforeCurrent;
+        this.current = 1; //保证请求page为1
+        this.reset = 1; //重置当前页面为1
         this.geneAjax();
       },
     },
@@ -176,28 +155,6 @@
           return first+': '+last;
         }
 
-      }
-    },
-    computed: {
-      pages: function () { //计算属性
-        let pag = [],
-          i = null;
-        if (this.current < this.showItem) {
-          i = Math.min(this.showItem, this.allPage);
-          while (i) {
-            pag.unshift(i--); //把一个元素添加到数组的开头
-          }
-        } else {
-          let middle = this.current - this.showItem / 2;//从哪里开始
-          i = this.showItem;
-          if (middle > (this.allPage - this.showItem)) {
-            middle = (this.allPage - this.showItem) + 1
-          }
-          while (i--) {
-            pag.push(middle++);
-          }
-        }
-        return pag
       }
     },
     updated: function () {
