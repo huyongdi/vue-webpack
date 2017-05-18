@@ -1,13 +1,13 @@
 <template>
   <div class="searchBorder" id="search_gene">
-    <input type="text" class="form-control input_hasImg" v-model="childValue" @keyup.enter="sendValue">
+    <input type="text" class="form-control input_hasImg" :placeholder='placeholder' v-model="childValue" @keyup.enter="sendValue">
     <button class="search-btn myBtn" @click.stop="sendValue"></button>
   </div>
 </template>
 
 <script>
   export default {
-    props: ['inputValue'],
+    props: ['inputValue','placeholder'],
     data: function () {
       return { childValue: this.inputValue }
     },

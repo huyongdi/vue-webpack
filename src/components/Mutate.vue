@@ -2,7 +2,7 @@
   <div class="right-content">
     <location imgClass="mutate-small" currentPage="变异"></location>
     <div class="detailShow">
-      <search :inputValue='mutateInput' @onEnter="onEnter"></search>
+      <search :inputValue='mutateInput' placeholder='11:119052976:C:T' @onEnter="onEnter"></search>
     </div>
   </div>
 </template>
