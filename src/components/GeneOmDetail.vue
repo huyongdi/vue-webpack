@@ -205,9 +205,40 @@
       }).then(function (resp) {
         _vue.basicResp = resp.data; //基本信息
         _vue.list_gene = resp.data.phenotypeMap; //基因信息
-        _vue.clinicalSynopsis = resp.data.clinicalSynopsis; //表型信息
         _vue.hpo_list = resp.hpos; //CHPO信息
         _vue.textList = resp.textSections; //文本信息
+
+        //表型信息 排序并显示HPO的中文
+        const clinicalSynopsisArr = [];
+        let count = 0; //用来记clinicalSynopsis对象有多少个值
+        $.each(resp.data.clinicalSynopsis, function (n2, data2) {
+          count+=1;
+          data2.name = n2;
+          $.each(data2, function (n3, data3) {
+            if (data3.hpo) {
+              _vue.$axios({
+                method: "get",
+                url: 'knowledge/hpo/' + data3.hpo + '/',
+              }).then(function (resp) {
+                data3.hpoName = resp.data.titles.chinese;
+                _vue.loading = false;
+                if (n3 === data2.length - 1) { //如果clinicalSynopsis对象某个属性遍历完了
+                  clinicalSynopsisArr.push(data2);
+                  if (count === clinicalSynopsisArr.length) { ////如果clinicalSynopsis对象所有属性遍历完了
+                    _vue.clinicalSynopsis = clinicalSynopsisArr;
+                  }
+                }
+              })
+            } else {
+              if (n3 === data2.length - 1) {
+                clinicalSynopsisArr.push(data2);
+                if (count === clinicalSynopsisArr.length) {
+                  _vue.clinicalSynopsis = clinicalSynopsisArr;
+                }
+              }
+            }
+          });
+        });
       })
     },
     updated: function () {
@@ -216,13 +247,13 @@
     methods: {
       sortSyn: function (clinicalSynopsis) {
         let arr = [];
+        let _vue = this;
         $.each(clinicalSynopsis, function (i, value) {
-          if (i === 'dateCreated') { //剔除数据
+          if (value.name === 'dateCreated') { //剔除数据
             return;
           }
-          value.name = i;
-          $.each(this.sortArr, function (k, data) {
-            if (i === data) {
+          $.each(_vue.sortArr, function (k, data) {
+            if (value.name === data) {
               value.code = k;
             }
           });
@@ -232,7 +263,7 @@
           return a.code - b.code
         });
         return arr
-      },
+      }
     },
   }
 </script>
@@ -249,11 +280,13 @@
   .gene-information-title {
     font-size: 16px;
   }
-  .gene-content{
+
+  .gene-content {
     background-color: #fafafa;
     padding: 20px 50px;
   }
-  .omIm-value{
+
+  .omIm-value {
     margin: 0 0 10px 0;
   }
 </style>

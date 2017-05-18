@@ -136,7 +136,6 @@
       onEnter: function (data) {
         this.inputValue = data;
         this.$route.query.query = this.inputValue;
-        console.log(this.$route.query.query);
         this.$route.query.p = 1;
         this.current = 1; //保证请求page为1
         this.reset = 1; //重置当前页面为1

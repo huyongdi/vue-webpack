@@ -33,7 +33,7 @@
       }
     },
     created:function () { //刷新当前页面时候判断需不需要加载头部
-      this.notLogin = localStorage.uname
+      this.notLogin = localStorage.uname;
     },
     watch:{
       '$route' (to, from) { //路由变化的时候判断需不需要加载头部

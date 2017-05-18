@@ -97,7 +97,7 @@
     components: {
       'location': topLocation,
       'search': search,
-      'pagenation':pagenation
+      'pagenation': pagenation
     },
     name: 'panel',
     data: function () {
@@ -111,7 +111,7 @@
         inputValue: this.$route.query.sp ? this.$route.query.sp : '',
         isFirst: 0,
 
-        count:1,
+        count: 1,
         current: 1,
         reset: 1,
       }
@@ -179,9 +179,9 @@
       })
     },
     methods: {
-      getCurrent:function (data) {
+      getCurrent: function (data) {
         this.current = data;
-        this.$route.query.page=data;
+        this.$route.query.page = data;
         this.reset = 0;
         this.getSubpanelList()
       },
@@ -217,7 +217,7 @@
           url: this.subPanelUrl,
           method: 'get'
         }).then(function (resp) {
-          _vue.count =resp.data.count;
+          _vue.count = resp.data.count;
           _vue.list_subPanel = resp.data.results;
           _vue.loading = false;
         });

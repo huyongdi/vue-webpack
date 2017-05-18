@@ -449,7 +449,6 @@
         url: 'database/snv/search/?query=' + this.$route.query.query,
         method: 'get'
       }).then(function (resp) {
-        console.log(resp);
         _vue.basicResp = resp.data;
         _vue.dbfreq();//绘制人群频率
         _vue.dbnfspPie(); //绘制dbnfsp左侧饼图
